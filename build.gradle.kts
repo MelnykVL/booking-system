@@ -1,15 +1,18 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.5.3"
-	id("io.spring.dependency-management") version "1.1.7"
+	alias(libs.plugins.spring.boot)
+	alias(libs.plugins.dependency.management)
 }
 
 group = "com.testtask"
 version = "0.0.1"
 
+val javaVersion = providers.gradleProperty("javaVersion").map(String::toInt)
+
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = javaVersion.map(JavaLanguageVersion::of)
+		vendor = JvmVendorSpec.ADOPTIUM
 	}
 }
 
@@ -23,6 +26,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.liquibase:liquibase-core")
 	runtimeOnly("org.postgresql:postgresql")
+	compileOnly(libs.lombok)
+	annotationProcessor(libs.lombok)
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
