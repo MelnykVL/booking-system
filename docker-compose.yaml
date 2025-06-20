@@ -1,0 +1,24 @@
+name: booking-storage
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${BOOK_SYS_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${BOOK_SYS_POSTGRES_PASS}
+      POSTGRES_DB: ${BOOK_SYS_POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:8.0
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+volumes:
+  postgres_data:
+  redis_data:
