@@ -1,0 +1,20 @@
+--liquibase formatted sql
+
+--changeset MelnykVL:create-bookings-table
+--comment create table booking_system.bookings
+CREATE TYPE BOOKING_STATUS AS ENUM('RESERVED', 'PAID', 'CANCELED', 'EXPIRED')
+
+CREATE TABLE booking_system.bookings (
+    id                  BIGSERIAL PRIMARY KEY,
+    unit_id             BIGINT REFERENCES booking_system.units(id),
+    user_id             BIGINT REFERENCES booking_system.users(id),
+    check_in_on         DATE NOT NULL,
+    check_out_on        DATE NOT NULL, --exclusion
+    total_cost          NUMERIC(10, 2) NOT NULL,
+    status              BOOKING_STATUS DEFAULT 'RESERVED',
+    expires_at          TIMESTAMPZ NOT NULL,
+    created_at          TIMESTAMPZ NOT NULL,
+    updated_at          TIMESTAMPZ NOT NULL,
+    CHECK ( check_out_on > check_in_on )
+)
+--rollback drop table booking_system.bookings
