@@ -1,3 +1,3 @@
-first_name;last_name;email
-Johnny;Depp;johnnydepp@gmail.com
-Jennifer;Lopez;jenniferlopez@gmail.com
+first_name;last_name;email;created_at;updated_at
+Johnny;Depp;johnnydepp@gmail.com;2025-06-22 13:45:00;2025-06-22 13:45:00
+Jennifer;Lopez;jenniferlopez@gmail.com;2025-06-22 13:45:00;2025-06-22 13:45:00
