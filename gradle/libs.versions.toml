@@ -2,6 +2,7 @@
 spring-boot = "3.5.0"
 dependency-management = "1.1.7"
 lombok = "1.18.38"
+spring-doc-openapi = "2.8.9"
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
@@ -9,3 +10,4 @@ dependency-management = { id = "io.spring.dependency-management", version.ref = 
 
 [libraries]
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+spring-doc-openapi = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "spring-doc-openapi" }

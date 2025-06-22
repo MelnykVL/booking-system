@@ -31,6 +31,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.liquibase:liquibase-core")
+	implementation(libs.spring.doc.openapi)
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor(libs.lombok)
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
