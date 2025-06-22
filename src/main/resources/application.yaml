@@ -1,6 +1,5 @@
 spring:
   liquibase:
-    default-schema: booking_system
     change-log: classpath:/db/changelog/db.changelog-master.yaml
   application:
     name: booking-system
