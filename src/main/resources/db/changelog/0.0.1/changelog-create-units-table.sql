@@ -8,9 +8,10 @@ CREATE TABLE booking_system.units (
     id                  BIGSERIAL PRIMARY KEY,
     user_id             BIGINT REFERENCES booking_system.users(id),
     number_of_rooms     INTEGER NOT NULL,
+    floor               INTEGER NOT NULL,
     type                ACCOMMODATION_TYPE NOT NULL,
     is_available        BOOLEAN DEFAULT false,
-    base_cost           NUMERIC(10, 2) NOT NULL,
+    price_per_night     NUMERIC(10, 2) NOT NULL,
     description         TEXT,
     created_at          TIMESTAMPZ NOT NULL ,
     updated_at          TIMESTAMPZ NOT NULL
