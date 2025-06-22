@@ -2,7 +2,7 @@
 
 --changeset MelnykVL:create-payments-table
 --comment create table booking_system.payments
-CREATE TYPE PAYMENT_STATUS AS ENUM('SUCCESS', 'FAILED', 'REFUNDED')
+CREATE TYPE PAYMENT_STATUS AS ENUM('SUCCESS', 'FAILED', 'REFUNDED');
 
 CREATE TABLE booking_system.payments (
     id                  BIGSERIAL PRIMARY KEY,
@@ -10,6 +10,6 @@ CREATE TABLE booking_system.payments (
     user_id             BIGINT REFERENCES booking_system.users(id),
     amount              NUMERIC(10, 2) NOT NULL,
     status              BOOKING_STATUS NOT NULL,
-    created_at          TIMESTAMPZ NOT NULL
-)
+    created_at          TIMESTAMPTZ NOT NULL
+);
 --rollback drop table booking_system.payments

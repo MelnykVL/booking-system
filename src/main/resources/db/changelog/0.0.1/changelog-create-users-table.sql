@@ -7,7 +7,7 @@ CREATE TABLE booking_system.users (
     first_name      VARCHAR(250) NOT NULL,
     last_name       VARCHAR(250) NOT NULL,
     email           VARCHAR(250) UNIQUE NOT NULL,
-    created_at      TIMESTAMPZ DEFAULT now(),
-    updated_at      TIMESTAMPZ DEFAULT now()
-)
+    created_at      TIMESTAMPTZ NOT NULL,
+    updated_at      TIMESTAMPTZ NOT NULL
+);
 --rollback drop table booking_system.users

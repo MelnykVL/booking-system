@@ -2,7 +2,7 @@
 
 --changeset MelnykVL:create-bookings-table
 --comment create table booking_system.bookings
-CREATE TYPE BOOKING_STATUS AS ENUM('RESERVED', 'PAID', 'CANCELED', 'EXPIRED')
+CREATE TYPE BOOKING_STATUS AS ENUM('RESERVED', 'PAID', 'CANCELED', 'EXPIRED');
 
 CREATE TABLE booking_system.bookings (
     id                  BIGSERIAL PRIMARY KEY,
@@ -12,9 +12,9 @@ CREATE TABLE booking_system.bookings (
     check_out_on        DATE NOT NULL, --exclusion
     total_cost          NUMERIC(10, 2) NOT NULL,
     status              BOOKING_STATUS DEFAULT 'RESERVED',
-    expires_at          TIMESTAMPZ NOT NULL,
-    created_at          TIMESTAMPZ NOT NULL,
-    updated_at          TIMESTAMPZ NOT NULL,
+    expires_at          TIMESTAMPTZ NOT NULL,
+    created_at          TIMESTAMPTZ NOT NULL,
+    updated_at          TIMESTAMPTZ NOT NULL,
     CHECK ( check_out_on > check_in_on )
-)
+);
 --rollback drop table booking_system.bookings

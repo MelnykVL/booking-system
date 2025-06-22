@@ -2,7 +2,7 @@
 
 --changeset MelnykVL:create-units-table
 --comment create table booking_system.units
-CREATE TYPE ACCOMMODATION_TYPE AS ENUM('HOME', 'FLAT', 'APARTMENTS')
+CREATE TYPE ACCOMMODATION_TYPE AS ENUM('HOME', 'FLAT', 'APARTMENTS');
 
 CREATE TABLE booking_system.units (
     id                  BIGSERIAL PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE booking_system.units (
     is_available        BOOLEAN DEFAULT false,
     price_per_night     NUMERIC(10, 2) NOT NULL,
     description         TEXT,
-    created_at          TIMESTAMPZ NOT NULL ,
-    updated_at          TIMESTAMPZ NOT NULL
-)
+    created_at          TIMESTAMPTZ NOT NULL,
+    updated_at          TIMESTAMPTZ NOT NULL
+);
 --rollback drop table booking_system.users
