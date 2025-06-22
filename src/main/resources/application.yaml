@@ -1,6 +1,7 @@
 spring:
   liquibase:
     default-schema: booking_system
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
   application:
     name: booking-system
   datasource:
@@ -11,6 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+    show-sql: true
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
