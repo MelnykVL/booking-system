@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: 0.0.1/changelog-create-users-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-units-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-bookings-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-payments-table.sql
+      relativeToChangelogFile: true
