@@ -3,8 +3,9 @@ name: booking-storage
 services:
   postgres:
     image: postgres:17
-    container_name: postgres
+    container_name: postgresql
     environment:
+      TZ: ${BOOK_SYS_POSTGRES_TIMEZONE}
       POSTGRES_USER: ${BOOK_SYS_POSTGRES_USER}
       POSTGRES_PASSWORD: ${BOOK_SYS_POSTGRES_PASS}
       POSTGRES_DB: ${BOOK_SYS_POSTGRES_DB}
