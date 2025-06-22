@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: load-users
+      author: MelnykVL
+      changes:
+        - loadData:
+            schemaName: booking_system
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  type: VARCHAR
+              - column:
+                  name: last_name
+                  type: VARCHAR
+              - column:
+                  name: email
+                  type: VARCHAR
+              - column:
+                  name: created_at
+              - column:
+                  name: updated_at
+            encoding: UTF-8
+            file: data/users_data.csv
+            separator: ;
+            usePreparedStatements: true
+            relativeToChangelogFile: true
+  - changeSet:
+      id: load-units
+      author: MelnykVL
+      changes:
+        - loadData:
+            schemaName: booking_system
+            tableName: units
+            columns:
+              - column:
+                  name: user_id
+                  type: NUMERIC
+              - column:
+                  name: number_of_rooms
+                  type: NUMERIC
+              - column:
+                  name: floor
+                  type: NUMERIC
+              - column:
+                  name: type
+                  type: OTHER
+              - column:
+                  name: is_available
+                  type: BOOLEAN
+              - column:
+                  name: price_per_night
+                  type: NUMERIC
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: created_at
+              - column:
+                  name: updated_at
+            encoding: UTF-8
+            file: data/units_data.csv
+            separator: ;
+            usePreparedStatements: true
+            relativeToChangelogFile: true
