@@ -10,7 +10,6 @@ CREATE TABLE booking_system.units (
     number_of_rooms     INTEGER NOT NULL,
     floor               INTEGER NOT NULL,
     type                ACCOMMODATION_TYPE NOT NULL,
-    is_available        BOOLEAN DEFAULT false,
     price_per_night     NUMERIC(10, 2) NOT NULL,
     description         TEXT,
     created_at          TIMESTAMPTZ NOT NULL,

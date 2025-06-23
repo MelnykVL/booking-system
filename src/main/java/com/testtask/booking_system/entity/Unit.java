@@ -46,9 +46,6 @@ public class Unit {
   private AccommodationType type;
 
   @Column(nullable = false)
-  private Boolean isAvailable;
-
-  @Column(nullable = false)
   private BigDecimal pricePerNight;
 
   @CreationTimestamp
