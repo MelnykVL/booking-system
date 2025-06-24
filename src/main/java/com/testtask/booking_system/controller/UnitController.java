@@ -1,10 +1,13 @@
 package com.testtask.booking_system.controller;
 
+import com.testtask.booking_system.dto.PagingResultDto;
 import com.testtask.booking_system.dto.UnitPatchDto;
 import com.testtask.booking_system.dto.UnitResponseDto;
 import com.testtask.booking_system.service.UnitService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,6 +28,14 @@ public class UnitController {
   @GetMapping("/{unitId}")
   public ResponseEntity<UnitResponseDto> findUnit(@PathVariable Long unitId) {
     return unitService.findUnit(unitId);
+  }
+
+  @GetMapping
+  public ResponseEntity<PagingResultDto<UnitResponseDto>> findAllUnits(
+      @RequestParam(required = false, defaultValue = "0") Integer page,
+      @RequestParam(required = false, defaultValue = "10") Integer size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return unitService.findAllUnits(pageable);
   }
 
   @PatchMapping("/{unitId}")

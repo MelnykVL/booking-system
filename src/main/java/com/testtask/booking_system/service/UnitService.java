@@ -38,14 +38,23 @@ public class UnitService {
   }
 
   @Transactional(readOnly = true)
+  public ResponseEntity<PagingResultDto<UnitResponseDto>> findAllUnits(Pageable pageable) {
+    Page<Unit> pageUnits = unitRepository.findAll(pageable);
+    PagingResultDto<UnitResponseDto> pagingResultUnitsDto =
+        pageMapper.pageToPagingResultDto(pageUnits, unitMapper::unitToUnitResponseDto);
+
+    return ResponseEntity.ok(pagingResultUnitsDto);
+  }
+
+  @Transactional(readOnly = true)
   public ResponseEntity<PagingResultDto<UnitResponseDto>> findOwnerUnits(Long ownerId, Pageable pageable) {
     if (!userRepository.existsById(ownerId)) {
       String errorMessage = String.format("Owner with id '%d' does not exist", ownerId);
       throw new ResourceNotFountException(errorMessage);
     }
-    Page<Unit> pageUnits = unitRepository.findAllByOwnerId(ownerId, pageable);
+    Page<Unit> pageOwnerUnits = unitRepository.findAllByOwnerId(ownerId, pageable);
     PagingResultDto<UnitResponseDto> pagingResultUnitsDto =
-        pageMapper.pageToPagingResultDto(pageUnits, unitMapper::unitToUnitResponseDto);
+        pageMapper.pageToPagingResultDto(pageOwnerUnits, unitMapper::unitToUnitResponseDto);
 
     return ResponseEntity.ok(pagingResultUnitsDto);
   }
