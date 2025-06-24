@@ -34,7 +34,7 @@ databaseChangeLog:
             tableName: units
             columns:
               - column:
-                  name: user_id
+                  name: owner_id
                   type: NUMERIC
               - column:
                   name: number_of_rooms
@@ -45,9 +45,6 @@ databaseChangeLog:
               - column:
                   name: type
                   type: OTHER
-              - column:
-                  name: is_available
-                  type: BOOLEAN
               - column:
                   name: price_per_night
                   type: NUMERIC
