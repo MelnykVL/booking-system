@@ -1,11 +1,11 @@
 owner_id;number_of_rooms;floor;type;price_per_night;description;created_at;updated_at
-1;1;1;HOME;150,00;Cozy single-story house with floor-to-ceiling windows, a private green terrace, and a wood-burning fireplace—perfect for greeting the sunrise to birdsong.;2025-06-22 13:45:00;2025-06-22 13:45:00
-1;5;100;APARTMENTS;900,00;Spacious 180 m² family cottage featuring four bedrooms, a sauna, and a two-car garage—everything you need for comfortable suburban living.;2025-06-22 13:45:00;2025-06-22 13:45:00
-1;1;5;APARTMENTS;90,00;Eco-cabin of solid timber on the forest’s edge: geothermal heating, filtered well water, and the scent of pines all year round.;2025-06-22 13:45:00;2025-06-22 13:45:00
-2;4;1;HOME;1500,00;Bright two-room studio flat in the heart of the city with French balconies and 3-meter-high ceilings—the charm of the old centre in a modern format.;2025-06-22 13:45:00;2025-06-22 13:45:00
-2;1;1;HOME;50,50;Fresh minimalist designer renovation, heated floors, and full smart-home integration—just move in and hit play on Netflix.;2025-06-22 13:45:00;2025-06-22 13:45:00
-1;6;1;FLAT;600,00;Snug two-bed next to a park: extra outlets for every gadget and city noise muted behind energy-efficient windows.;2025-06-22 13:45:00;2025-06-22 13:45:00
-1;2;1;HOME;100,00;Panoramic apartment on the 25th floor with sunset river views, a private lift, and a rooftop lounge area.;2025-06-22 13:45:00;2025-06-22 13:45:00
-1;2;8;FLAT;200,00;Boutique-style 50 m² luxury unit in a new mixed-use complex: 24/7 concierge, gym downstairs, and shared co-working with its own coffee roastery.;2025-06-22 13:45:00;2025-06-22 13:45:00
-1;3;7;FLAT;300,00;Loft apartment in a restored 1900s factory: original brick walls, exposed beams, and a bar area with a wine fridge.;2025-06-22 13:45:00;2025-06-22 13:45:00
-2;3;6;FLAT;400,00;Contemporary smart-barn in country style: open plan, a living moss wall, and full control of all systems from your smartphone.;2025-06-22 13:45:00;2025-06-22 13:45:00
+1;1;1;HOME;150.00;Cozy single-story house with floor-to-ceiling windows, a private green terrace, and a wood-burning fireplace—perfect for greeting the sunrise to birdsong.;2025-06-22 13:45:00;2025-06-22 13:45:00
+1;5;100;APARTMENTS;900.00;Spacious 180 m² family cottage featuring four bedrooms, a sauna, and a two-car garage—everything you need for comfortable suburban living.;2025-06-22 13:45:00;2025-06-22 13:45:00
+1;1;5;APARTMENTS;90.00;Eco-cabin of solid timber on the forest’s edge: geothermal heating, filtered well water, and the scent of pines all year round.;2025-06-22 13:45:00;2025-06-22 13:45:00
+2;4;1;HOME;1500.00;Bright two-room studio flat in the heart of the city with French balconies and 3-meter-high ceilings—the charm of the old centre in a modern format.;2025-06-22 13:45:00;2025-06-22 13:45:00
+2;1;1;HOME;50.50;Fresh minimalist designer renovation, heated floors, and full smart-home integration—just move in and hit play on Netflix.;2025-06-22 13:45:00;2025-06-22 13:45:00
+1;6;1;FLAT;600.00;Snug two-bed next to a park: extra outlets for every gadget and city noise muted behind energy-efficient windows.;2025-06-22 13:45:00;2025-06-22 13:45:00
+1;2;1;HOME;100.00;Panoramic apartment on the 25th floor with sunset river views, a private lift, and a rooftop lounge area.;2025-06-22 13:45:00;2025-06-22 13:45:00
+1;2;8;FLAT;200.00;Boutique-style 50 m² luxury unit in a new mixed-use complex: 24/7 concierge, gym downstairs, and shared co-working with its own coffee roastery.;2025-06-22 13:45:00;2025-06-22 13:45:00
+1;3;7;FLAT;300.00;Loft apartment in a restored 1900s factory: original brick walls, exposed beams, and a bar area with a wine fridge.;2025-06-22 13:45:00;2025-06-22 13:45:00
+2;3;6;FLAT;400;Contemporary smart-barn in country style: open plan, a living moss wall, and full control of all systems from your smartphone.;2025-06-22 13:45:00;2025-06-22 13:45:00
