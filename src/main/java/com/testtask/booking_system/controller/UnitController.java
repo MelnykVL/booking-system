@@ -1,6 +1,5 @@
 package com.testtask.booking_system.controller;
 
-import com.testtask.booking_system.dto.UnitCreateDto;
 import com.testtask.booking_system.dto.UnitPatchDto;
 import com.testtask.booking_system.dto.UnitResponseDto;
 import com.testtask.booking_system.service.UnitService;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,11 +24,6 @@ public class UnitController {
   @GetMapping("/{unitId}")
   public ResponseEntity<UnitResponseDto> findUnit(@PathVariable Long unitId) {
     return unitService.findUnit(unitId);
-  }
-
-  @PostMapping
-  public ResponseEntity<UnitResponseDto> createUnit(@Valid @RequestBody UnitCreateDto unitCreateDto) {
-    return unitService.createUnit(unitCreateDto);
   }
 
   @PatchMapping("/{unitId}")
