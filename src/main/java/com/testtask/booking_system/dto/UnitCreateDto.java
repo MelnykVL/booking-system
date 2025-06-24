@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public record UnitCreateDto(
-    @NotNull(message = "'ownerId' cannot be null.") Long ownerId,
     @NotNull(message = "'numberOfRooms' cannot be null.")
     @Positive(message = "'numberOfRooms' must be greater than 0.") Integer numberOfRooms,
     @NotNull(message = "'floor' cannot be null.") Integer floor,
