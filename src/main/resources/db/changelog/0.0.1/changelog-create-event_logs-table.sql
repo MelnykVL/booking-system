@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
---changeset MelnykVL:create-events-table
---comment create new booking_system.events table
+--changeset MelnykVL:create-events_log-table
+--comment create new booking_system.events_log table
 CREATE TABLE events_log (
     uuid            UUID PRIMARY KEY,
     entity          VARCHAR(100) NOT NULL,
