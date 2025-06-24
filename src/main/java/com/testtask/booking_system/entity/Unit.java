@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "units", schema = "booking_system")
@@ -38,16 +41,19 @@ public class Unit {
   private User owner;
 
   @Column(nullable = false)
+  @Positive
   private Integer numberOfRooms;
 
   @Column(nullable = false)
   private Integer floor;
 
-  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  @JdbcTypeCode(SqlTypes.NAMED_ENUM)
   private AccommodationType type;
 
   @Column(nullable = false)
+  @Positive
   private BigDecimal pricePerNight;
 
   @CreationTimestamp
