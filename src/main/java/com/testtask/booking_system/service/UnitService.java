@@ -1,11 +1,13 @@
 package com.testtask.booking_system.service;
 
+import com.testtask.booking_system.dto.PagingResultDto;
 import com.testtask.booking_system.dto.UnitCreateDto;
 import com.testtask.booking_system.dto.UnitPatchDto;
 import com.testtask.booking_system.dto.UnitResponseDto;
 import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.entity.User;
 import com.testtask.booking_system.exception.ResourceNotFountException;
+import com.testtask.booking_system.mapper.PageMapper;
 import com.testtask.booking_system.mapper.UnitMapper;
 import com.testtask.booking_system.repository.UnitRepository;
 import com.testtask.booking_system.repository.UserRepository;
@@ -24,6 +26,7 @@ public class UnitService {
   private final UnitRepository unitRepository;
   private final UserRepository userRepository;
   private final UnitMapper unitMapper;
+  private final PageMapper pageMapper;
 
   @Transactional(readOnly = true)
   public ResponseEntity<UnitResponseDto> findUnit(Long unitId) {
@@ -35,20 +38,21 @@ public class UnitService {
   }
 
   @Transactional(readOnly = true)
-  public ResponseEntity<Page<UnitResponseDto>> findOwnerUnits(Long ownerId, Pageable pageable) {
-    if (userRepository.existsById(ownerId)) {
+  public ResponseEntity<PagingResultDto<UnitResponseDto>> findOwnerUnits(Long ownerId, Pageable pageable) {
+    if (!userRepository.existsById(ownerId)) {
       String errorMessage = String.format("Owner with id '%d' does not exist", ownerId);
       throw new ResourceNotFountException(errorMessage);
     }
-    Page<UnitResponseDto> pageUnits =
-        unitRepository.findAllByOwnerId(ownerId, pageable).map(unitMapper::unitToUnitResponseDto);
+    Page<Unit> pageUnits = unitRepository.findAllByOwnerId(ownerId, pageable);
+    PagingResultDto<UnitResponseDto> pagingResultUnitsDto =
+        pageMapper.pageToPagingResultDto(pageUnits, unitMapper::unitToUnitResponseDto);
 
-    return ResponseEntity.ok(pageUnits);
+    return ResponseEntity.ok(pagingResultUnitsDto);
   }
 
-  public ResponseEntity<UnitResponseDto> createUnit(UnitCreateDto unitCreateDto) {
-    User owner = userRepository.findById(unitCreateDto.ownerId()).orElseThrow(() -> {
-      String errorMessage = String.format("Owner with id '%d' does not exist", unitCreateDto.ownerId());
+  public ResponseEntity<UnitResponseDto> createOwnerUnit(Long ownerId, UnitCreateDto unitCreateDto) {
+    User owner = userRepository.findById(ownerId).orElseThrow(() -> {
+      String errorMessage = String.format("Owner with id '%d' does not exist", ownerId);
       return new ResourceNotFountException(errorMessage);
     });
     Unit unit = unitMapper.unitCreateDtoToUnit(unitCreateDto);
