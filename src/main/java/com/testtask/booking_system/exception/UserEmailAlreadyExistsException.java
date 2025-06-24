@@ -1,4 +1,4 @@
-package com.testtask.booking_system;
+package com.testtask.booking_system.exception;
 
 public class UserEmailAlreadyExistsException extends RuntimeException {
 
