@@ -1,5 +1,6 @@
 package com.testtask.booking_system.config;
 
+import com.testtask.booking_system.exception.ResourceNotFountException;
 import com.testtask.booking_system.exception.UserEmailAlreadyExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.stream.Collectors;
@@ -26,6 +27,11 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(UserEmailAlreadyExistsException.class)
   public ResponseEntity<String> handleUserEmailAlreadyExistsException(UserEmailAlreadyExistsException ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler(ResourceNotFountException.class)
+  public ResponseEntity<String> handleUserEmailAlreadyExistsException(ResourceNotFountException ex) {
+    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
