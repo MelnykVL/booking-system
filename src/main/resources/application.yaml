@@ -1,3 +1,6 @@
+booking-system:
+  pricing:
+    markup-percent: 15
 spring:
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
