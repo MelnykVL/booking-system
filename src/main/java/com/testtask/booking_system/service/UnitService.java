@@ -59,7 +59,7 @@ public class UnitService {
     return ResponseEntity.ok(pagingResultUnitsDto);
   }
 
-  public ResponseEntity<UnitResponseDto> createOwnerUnit(Long ownerId, UnitCreateDto unitCreateDto) {
+  public ResponseEntity<UnitResponseDto> createUnit(Long ownerId, UnitCreateDto unitCreateDto) {
     User owner = userRepository.findById(ownerId).orElseThrow(() -> {
       String errorMessage = String.format("Owner with id '%d' does not exist", ownerId);
       return new ResourceNotFountException(errorMessage);

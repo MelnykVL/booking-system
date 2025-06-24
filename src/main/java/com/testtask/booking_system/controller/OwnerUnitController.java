@@ -35,6 +35,6 @@ public class OwnerUnitController {
   @PostMapping("/{ownerId}/units")
   public ResponseEntity<UnitResponseDto> createOwnerUnit(@PathVariable Long ownerId,
       @Valid @RequestBody UnitCreateDto unitCreateDto) {
-    return unitService.createOwnerUnit(ownerId, unitCreateDto);
+    return unitService.createUnit(ownerId, unitCreateDto);
   }
 }
