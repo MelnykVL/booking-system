@@ -7,7 +7,7 @@ CREATE TABLE booking_system.event_logs (
     entity          VARCHAR(100) NOT NULL,
     entity_id       BIGINT NOT NULL,
     action          TEXT NOT NULL,
-    payload         JSONB NOT NULL,
+    payload         JSONB,
     created_at      TIMESTAMPTZ NOT NULL
 );
 --rollback drop table booking_system.events;

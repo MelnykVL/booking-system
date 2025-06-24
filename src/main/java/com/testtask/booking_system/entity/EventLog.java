@@ -34,7 +34,7 @@ public class EventLog {
   @Column(nullable = false)
   private String action;
 
-  @Column(columnDefinition = "jsonb", nullable = false)
+  @Column(columnDefinition = "jsonb")
   private String payload;
 
   @CreationTimestamp
