@@ -2,10 +2,13 @@ package com.testtask.booking_system.dto;
 
 import com.testtask.booking_system.enums.AccommodationType;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-public record UnitCreateDto(@NotNull Long ownerId,
-                            @NotNull Integer numberOfRooms,
-                            @NotNull Integer floor,
-                            @NotNull AccommodationType type,
-                            @NotNull BigDecimal pricePerNight) {}
+public record UnitCreateDto(@NotNull(message = "'ownerId' cannot be null.") Long ownerId,
+                            @NotNull(message = "'numberOfRooms' cannot be null.")
+                            @Positive(message = "'numberOfRooms' should be more than 0.") Integer numberOfRooms,
+                            @NotNull(message = "'floor' cannot be null.") Integer floor,
+                            @NotNull(message = "'type' cannot be null.") AccommodationType type,
+                            @NotNull(message = "'pricePerNight' cannot be null.")
+                            @Positive(message = "'pricePerNight' should be more than 0.00.") BigDecimal pricePerNight) {}
