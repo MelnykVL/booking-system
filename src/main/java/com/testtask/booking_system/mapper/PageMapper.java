@@ -17,12 +17,12 @@ public interface PageMapper {
         .toList();
 
     return new PagingResultDto<>(
+        content,
         page.getNumber(),
         page.getSize(),
         page.getTotalPages(),
         page.getTotalElements(),
-        page.isEmpty(),
-        content
+        page.isEmpty()
     );
   }
 }
