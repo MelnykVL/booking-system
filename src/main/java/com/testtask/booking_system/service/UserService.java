@@ -1,13 +1,13 @@
 package com.testtask.booking_system.service;
 
-import com.testtask.booking_system.UserEmailAlreadyExistsException;
 import com.testtask.booking_system.dto.UserCreateDto;
 import com.testtask.booking_system.dto.UserPatchDto;
 import com.testtask.booking_system.dto.UserResponseDto;
 import com.testtask.booking_system.entity.User;
+import com.testtask.booking_system.exception.ResourceNotFountException;
+import com.testtask.booking_system.exception.UserEmailAlreadyExistsException;
 import com.testtask.booking_system.mapper.UserMapper;
 import com.testtask.booking_system.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +23,9 @@ public class UserService {
   private final UserMapper userMapper;
 
   @Transactional(readOnly = true)
-  public ResponseEntity<UserResponseDto> getUser(Long userId) {
-    User user = userRepository.findById(userId).orElseThrow(() -> {
-      String errorMessage = String.format("User with id '%d' does not exist", userId);
-      return new EntityNotFoundException(errorMessage);
-    });
+  public ResponseEntity<UserResponseDto> findUser(Long userId) {
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new ResourceNotFountException(User.class.getSimpleName(), userId));
     UserResponseDto userResponseDto = userMapper.userToUserResponseDto(user);
 
     return ResponseEntity.ok(userResponseDto);
@@ -44,10 +42,8 @@ public class UserService {
   }
 
   public ResponseEntity<UserResponseDto> patchUser(Long userId, UserPatchDto userPatchDto) {
-    User user = userRepository.findById(userId).orElseThrow(() -> {
-      String errorMessage = String.format("User with id '%d' does not exist", userId);
-      return new EntityNotFoundException(errorMessage);
-    });
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new ResourceNotFountException(User.class.getSimpleName(), userId));
     String email = userPatchDto.email();
     if (StringUtils.isNotBlank(email) && userRepository.existsByEmail(email)) {
       throw new UserEmailAlreadyExistsException(email);
