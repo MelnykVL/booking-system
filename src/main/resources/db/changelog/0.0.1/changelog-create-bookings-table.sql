@@ -15,6 +15,9 @@ CREATE TABLE booking_system.bookings (
     expires_at          TIMESTAMPTZ NOT NULL,
     created_at          TIMESTAMPTZ NOT NULL,
     updated_at          TIMESTAMPTZ NOT NULL,
-    CHECK ( check_out_on > check_in_on )
+    period              DATARANGE GENERATED ALWAYS AS (daterange(check_in_on, check_out_on, '[)')) stored,
+    CONSTRAINT cho_chin_check CHECK ( check_out_on > check_in_on ),
+    CONSTRAINT booking_no_overlap EXCLUDE USING GIST (room_id WITH =, period WITH &&)
+        WHERE (status IN ('RESERVED', 'PAID'))
 );
 --rollback drop table booking_system.bookings
