@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 public record UnitResponseDto(Long id,
-                              Long owner_id,
+                              Long ownerId,
                               Integer numberOfRooms,
                               Integer floor,
                               AccommodationType type,
