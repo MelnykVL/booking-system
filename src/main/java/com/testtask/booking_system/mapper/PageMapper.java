@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PageMapper {
 
-  default <S, D> PagingResultDto<D> pageToPagingResultDto(Page<S> page, Function<S, D> mapper) {
+  default <S, D> PagingResultDto<D> toPagingResultDto(Page<S> page, Function<S, D> mapper) {
     List<D> content = page.getContent()
         .stream()
         .map(mapper)

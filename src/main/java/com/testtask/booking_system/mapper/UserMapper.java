@@ -13,8 +13,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {
 
-  User userCreateDtoToUser(UserCreateDto userCreateDto);
-  UserResponseDto userToUserResponseDto(User user);
+  User fromUserCreateDto(UserCreateDto userCreateDto);
+  UserResponseDto toUserResponseDto(User user);
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  User patchUser(UserPatchDto userPatchDto, @MappingTarget User user);
+  User fromUserPatchDto(UserPatchDto userPatchDto, @MappingTarget User user);
 }

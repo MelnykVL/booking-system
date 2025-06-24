@@ -32,7 +32,7 @@ public class UnitService {
   public ResponseEntity<UnitResponseDto> findUnit(Long unitId) {
     Unit unit = unitRepository.findById(unitId)
         .orElseThrow(() -> new ResourceNotFountException(Unit.class.getSimpleName(), unitId));
-    UnitResponseDto unitResponseDto = unitMapper.unitToUnitResponseDto(unit);
+    UnitResponseDto unitResponseDto = unitMapper.toUnitResponseDto(unit);
 
     return ResponseEntity.ok(unitResponseDto);
   }
@@ -41,7 +41,7 @@ public class UnitService {
   public ResponseEntity<PagingResultDto<UnitResponseDto>> findAllUnits(Pageable pageable) {
     Page<Unit> pageUnits = unitRepository.findAll(pageable);
     PagingResultDto<UnitResponseDto> pagingResultUnitsDto =
-        pageMapper.pageToPagingResultDto(pageUnits, unitMapper::unitToUnitResponseDto);
+        pageMapper.toPagingResultDto(pageUnits, unitMapper::toUnitResponseDto);
 
     return ResponseEntity.ok(pagingResultUnitsDto);
   }
@@ -54,7 +54,7 @@ public class UnitService {
     }
     Page<Unit> pageOwnerUnits = unitRepository.findAllByOwnerId(ownerId, pageable);
     PagingResultDto<UnitResponseDto> pagingResultUnitsDto =
-        pageMapper.pageToPagingResultDto(pageOwnerUnits, unitMapper::unitToUnitResponseDto);
+        pageMapper.toPagingResultDto(pageOwnerUnits, unitMapper::toUnitResponseDto);
 
     return ResponseEntity.ok(pagingResultUnitsDto);
   }
@@ -64,9 +64,9 @@ public class UnitService {
       String errorMessage = String.format("Owner with id '%d' does not exist", ownerId);
       return new ResourceNotFountException(errorMessage);
     });
-    Unit unit = unitMapper.unitCreateDtoToUnit(unitCreateDto);
+    Unit unit = unitMapper.fromUnitCreateDto(unitCreateDto);
     unit.setOwner(owner);
-    UnitResponseDto unitResponseDto = unitMapper.unitToUnitResponseDto(unitRepository.save(unit));
+    UnitResponseDto unitResponseDto = unitMapper.toUnitResponseDto(unitRepository.save(unit));
 
     return ResponseEntity.ok(unitResponseDto);
   }
@@ -74,8 +74,8 @@ public class UnitService {
   public ResponseEntity<UnitResponseDto> patchUnit(Long unitId, UnitPatchDto unitPatchDto) {
     Unit unit = unitRepository.findById(unitId)
         .orElseThrow(() -> new ResourceNotFountException(Unit.class.getSimpleName(), unitId));
-    unit = unitMapper.patchUnit(unitPatchDto, unit);
-    UnitResponseDto unitResponseDto = unitMapper.unitToUnitResponseDto(unitRepository.save(unit));
+    unit = unitMapper.fromUnitPatchDto(unitPatchDto, unit);
+    UnitResponseDto unitResponseDto = unitMapper.toUnitResponseDto(unitRepository.save(unit));
     return ResponseEntity.ok(unitResponseDto);
   }
 

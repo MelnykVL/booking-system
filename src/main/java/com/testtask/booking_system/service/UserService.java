@@ -26,7 +26,7 @@ public class UserService {
   public ResponseEntity<UserResponseDto> findUser(Long userId) {
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new ResourceNotFountException(User.class.getSimpleName(), userId));
-    UserResponseDto userResponseDto = userMapper.userToUserResponseDto(user);
+    UserResponseDto userResponseDto = userMapper.toUserResponseDto(user);
 
     return ResponseEntity.ok(userResponseDto);
   }
@@ -35,8 +35,8 @@ public class UserService {
     if (userRepository.existsByEmail(userCreateDto.email())) {
       throw new UserEmailAlreadyExistsException(userCreateDto.email());
     }
-    User user = userMapper.userCreateDtoToUser(userCreateDto);
-    UserResponseDto userResponseDto = userMapper.userToUserResponseDto(userRepository.save(user));
+    User user = userMapper.fromUserCreateDto(userCreateDto);
+    UserResponseDto userResponseDto = userMapper.toUserResponseDto(userRepository.save(user));
 
     return ResponseEntity.ok(userResponseDto);
   }
@@ -48,8 +48,8 @@ public class UserService {
     if (StringUtils.isNotBlank(email) && userRepository.existsByEmail(email)) {
       throw new UserEmailAlreadyExistsException(email);
     }
-    user = userMapper.patchUser(userPatchDto, user);
-    UserResponseDto userResponseDto = userMapper.userToUserResponseDto(userRepository.save(user));
+    user = userMapper.fromUserPatchDto(userPatchDto, user);
+    UserResponseDto userResponseDto = userMapper.toUserResponseDto(userRepository.save(user));
     return ResponseEntity.ok(userResponseDto);
   }
 }

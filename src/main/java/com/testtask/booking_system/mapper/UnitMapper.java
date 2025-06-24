@@ -22,15 +22,15 @@ public abstract class UnitMapper {
 
   protected PricingProps pricingProps;
 
-  public abstract Unit unitCreateDtoToUnit(UnitCreateDto unitCreateDto);
+  public abstract Unit fromUnitCreateDto(UnitCreateDto unitCreateDto);
 
   @Mapping(source = "owner.id", target = "ownerId")
   @Mapping(target = "pricePerNight",
       expression = "java(applyMarkup(unit.getPricePerNight(), pricingProps.getMarkupPercent()))")
-  public abstract UnitResponseDto unitToUnitResponseDto(Unit unit);
+  public abstract UnitResponseDto toUnitResponseDto(Unit unit);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  public abstract Unit patchUnit(UnitPatchDto unitPatchDto, @MappingTarget Unit unit);
+  public abstract Unit fromUnitPatchDto(UnitPatchDto unitPatchDto, @MappingTarget Unit unit);
 
   public BigDecimal applyMarkup(BigDecimal price, BigDecimal markupPercent) {
     return MarkupUtils.applyMarkup(price, markupPercent);
