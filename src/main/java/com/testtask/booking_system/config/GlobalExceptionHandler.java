@@ -1,6 +1,6 @@
 package com.testtask.booking_system.config;
 
-import com.testtask.booking_system.UserEmailAlreadyExistsException;
+import com.testtask.booking_system.exception.UserEmailAlreadyExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
