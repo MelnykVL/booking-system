@@ -15,5 +15,8 @@ databaseChangeLog:
       file: 0.0.1/changelog-create-payments-table.sql
       relativeToChangelogFile: true
   - include:
+      file: 0.0.1/changelog-create-event_logs-table.sql
+      relativeToChangelogFile: true
+  - include:
       file: 0.0.1/load-data.yaml
       relativeToChangelogFile: true
