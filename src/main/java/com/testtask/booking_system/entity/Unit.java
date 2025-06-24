@@ -52,7 +52,7 @@ public class Unit {
   @JdbcTypeCode(SqlTypes.NAMED_ENUM)
   private AccommodationType type;
 
-  @Column(nullable = false)
+  @Column(nullable = false, precision = 10, scale = 2)
   @Positive
   private BigDecimal pricePerNight;
 

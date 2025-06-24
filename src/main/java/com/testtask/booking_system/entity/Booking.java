@@ -49,7 +49,7 @@ public class Booking {
   @Column(nullable = false)
   private LocalDate checkOutOn;
 
-  @Column(nullable = false)
+  @Column(nullable = false, precision = 10, scale = 2)
   private BigDecimal totalCost;
 
   @Enumerated(EnumType.STRING)
