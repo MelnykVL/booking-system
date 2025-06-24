@@ -3,7 +3,7 @@
 --changeset MelnykVL:create-users-table
 --comment create table booking_system.users
 CREATE TABLE booking_system.users (
-    id              BIGSERIAL PRIMARY KEY,
+    id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     first_name      VARCHAR(250) NOT NULL,
     last_name       VARCHAR(250) NOT NULL,
     email           VARCHAR(250) UNIQUE NOT NULL,

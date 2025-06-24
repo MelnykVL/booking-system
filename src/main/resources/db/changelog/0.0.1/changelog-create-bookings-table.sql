@@ -5,7 +5,7 @@
 CREATE TYPE BOOKING_STATUS AS ENUM('RESERVED', 'PAID', 'CANCELED', 'EXPIRED');
 
 CREATE TABLE booking_system.bookings (
-    id                  BIGSERIAL PRIMARY KEY,
+    id                  BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     unit_id             BIGINT REFERENCES booking_system.units(id),
     user_id             BIGINT REFERENCES booking_system.users(id),
     check_in_on         DATE NOT NULL,

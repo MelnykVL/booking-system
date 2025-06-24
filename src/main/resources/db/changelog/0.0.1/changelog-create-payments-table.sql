@@ -5,7 +5,7 @@
 CREATE TYPE PAYMENT_STATUS AS ENUM('SUCCEEDED', 'FAILED');
 
 CREATE TABLE booking_system.payments (
-    id                  BIGSERIAL PRIMARY KEY,
+    id                  BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     booking_id          BIGINT REFERENCES booking_system.bookings(id),
     user_id             BIGINT REFERENCES booking_system.users(id),
     amount              NUMERIC(10, 2) NOT NULL,

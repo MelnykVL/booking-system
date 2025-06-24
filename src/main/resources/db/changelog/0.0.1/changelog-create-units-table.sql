@@ -5,8 +5,8 @@
 CREATE TYPE ACCOMMODATION_TYPE AS ENUM('HOME', 'FLAT', 'APARTMENTS');
 
 CREATE TABLE booking_system.units (
-    id                  BIGSERIAL PRIMARY KEY,
-    owner_id             BIGINT REFERENCES booking_system.users(id),
+    id                  BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    owner_id            BIGINT REFERENCES booking_system.users(id),
     number_of_rooms     INTEGER NOT NULL,
     floor               INTEGER NOT NULL,
     type                ACCOMMODATION_TYPE NOT NULL,
