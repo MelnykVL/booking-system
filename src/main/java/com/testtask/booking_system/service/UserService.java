@@ -12,14 +12,17 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
   private final UserRepository userRepository;
   private final UserMapper userMapper;
 
+  @Transactional(readOnly = true)
   public ResponseEntity<UserResponseDto> getUser(Long userId) {
     User user = userRepository.findById(userId).orElseThrow(() -> {
       String errorMessage = String.format("User with id '%d' does not exist", userId);
