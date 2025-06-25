@@ -26,7 +26,7 @@ public abstract class UnitMapper {
 
   @Mapping(source = "owner.id", target = "ownerId")
   @Mapping(target = "pricePerNight",
-      expression = "java(applyMarkup(unit.getPricePerNight(), pricingProps.getMarkupPercent()))")
+      expression = "java(applyMarkup(unit.getPricePerNight(), pricingProps.markupPercent()))")
   public abstract UnitResponseDto toUnitResponseDto(Unit unit);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

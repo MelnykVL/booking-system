@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class BookingService {
+
+  @Value("${booking-system.booking.expiration}")
+  private Integer expiration;
 
   private final BookingRepository bookingRepository;
   private final UserRepository userRepository;
@@ -43,9 +47,9 @@ public class BookingService {
     booking.setUnit(unit);
     BigDecimal totalCost =
         MarkupUtils.countTotalCostForPeriod(bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn(),
-            unit.getPricePerNight(), pricingProps.getMarkupPercent());
+            unit.getPricePerNight(), pricingProps.markupPercent());
     booking.setTotalCost(totalCost);
-    booking.setExpiresAt(Instant.now().plus(Duration.ofMinutes(15)));
+    booking.setExpiresAt(Instant.now().plus(Duration.ofMinutes(expiration)));
     booking = bookingRepository.save(booking);
     BookingResponseDto bookingResponseDto = bookingMapper.toBookingResponseDto(booking);
     return ResponseEntity.ok(bookingResponseDto);
