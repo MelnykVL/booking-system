@@ -1,6 +1,7 @@
 package com.testtask.booking_system.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.testtask.booking_system.enums.AccommodationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,10 +13,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -66,4 +69,8 @@ public class Unit {
 
   @UpdateTimestamp
   private Instant updatedAt;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
+  @JsonManagedReference
+  private List<Booking> bookings;
 }
