@@ -16,8 +16,9 @@ CREATE TABLE booking_system.units (
     price_per_night     NUMERIC(10, 2) NOT NULL,
     description         TEXT,
     created_at          TIMESTAMPTZ NOT NULL,
-    updated_at          TIMESTAMPTZ NOT NULL
-) PARTITION BY list(type);
+    updated_at          TIMESTAMPTZ NOT NULL,
+    UNIQUE (id)
+);
 --rollback drop table booking_system.users
 
 --changeset MelnykVL:create-index-idx_unit_catalog
@@ -29,21 +30,3 @@ CREATE INDEX idx_unit_catalog ON booking_system.units(number_of_rooms, floor, ty
 --comment create index idx_unit_price
 CREATE INDEX idx_unit_price ON booking_system.units(price_per_night);
 --rollback drop index idx_unit_price
-
---changeset MelnykVL:create-partition-booking_system.units-homes
---comment create partition homes for booking_system.units table
-CREATE TABLE homes PARTITION OF booking_system.units
-    FOR VALUES IN ('HOME');
---rollback drop partition homes
-
---changeset MelnykVL:create-partition-booking_system.units-flats
---comment create partition flats for booking_system.units table
-CREATE TABLE flats PARTITION OF booking_system.units
-    FOR VALUES IN ('FLAT');
---rollback drop partition flats
-
---changeset MelnykVL:create-partition-booking_system.units-apartments
---comment create partition apartments for booking_system.units table
-CREATE TABLE apartments PARTITION OF booking_system.units
-    FOR VALUES IN ('APARTMENTS');
---rollback drop partition apartments
