@@ -3,6 +3,9 @@ databaseChangeLog:
       file: 0.0.1/changelog-create-booking_system-schema.sql
       relativeToChangelogFile: true
   - include:
+      file: 0.0.1/changelog-create-extension-btree_gist.sql
+      relativeToChangelogFile: true
+  - include:
       file: 0.0.1/changelog-create-users-table.sql
       relativeToChangelogFile: true
   - include:
