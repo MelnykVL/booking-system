@@ -1,5 +1,6 @@
 package com.testtask.booking_system.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.testtask.booking_system.enums.BookingStatus;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -7,8 +8,8 @@ import java.time.LocalDate;
 
 public record BookingResponseDto(
     Long id,
-    UnitResponseDto unitResponseDto,
-    UserResponseDto userResponseDto,
+    @JsonInclude(JsonInclude.Include.NON_NULL) UnitResponseDto unitResponseDto,
+    @JsonInclude(JsonInclude.Include.NON_NULL) UserResponseDto userResponseDto,
     LocalDate checkInOn,
     LocalDate checkOutOn,
     BigDecimal totalCost,
