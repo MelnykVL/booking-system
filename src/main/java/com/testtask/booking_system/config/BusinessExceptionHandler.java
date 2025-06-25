@@ -1,5 +1,6 @@
 package com.testtask.booking_system.config;
 
+import com.testtask.booking_system.exception.BookingCancellationNotAllowedException;
 import com.testtask.booking_system.exception.ResourceNotFountException;
 import com.testtask.booking_system.exception.UnitNotBookedByUserException;
 import com.testtask.booking_system.exception.UserEmailAlreadyExistsException;
@@ -33,6 +34,13 @@ public class BusinessExceptionHandler {
   @ExceptionHandler(UnitNotBookedByUserException.class)
   public ResponseEntity<String> handleUnitNotBookedByUserException(UnitNotBookedByUserException ex) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        .body(ex.getMessage());
+  }
+
+  @ExceptionHandler(BookingCancellationNotAllowedException.class)
+  public ResponseEntity<String> handleBookingCancellationNotAllowedException(
+      BookingCancellationNotAllowedException ex) {
+    return ResponseEntity.status(HttpStatus.CONFLICT)
         .body(ex.getMessage());
   }
 }
