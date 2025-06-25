@@ -8,19 +8,20 @@ import com.testtask.booking_system.entity.User;
 import com.testtask.booking_system.enums.BookingStatus;
 import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.exception.BookingCancellationNotAllowedException;
+import com.testtask.booking_system.exception.MaxBookingTermException;
 import com.testtask.booking_system.exception.ResourceNotFountException;
 import com.testtask.booking_system.exception.UserNotOwnerBookingException;
 import com.testtask.booking_system.mapper.BookingMapper;
+import com.testtask.booking_system.props.BookingProps;
 import com.testtask.booking_system.props.PricingProps;
 import com.testtask.booking_system.repository.BookingRepository;
 import com.testtask.booking_system.repository.UnitRepository;
 import com.testtask.booking_system.repository.UserRepository;
 import com.testtask.booking_system.util.MarkupUtils;
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,17 +31,19 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class BookingService {
 
-  @Value("${booking-system.booking.expiration}")
-  private Integer expiration;
-
   private final BookingRepository bookingRepository;
   private final UserRepository userRepository;
   private final UnitRepository unitRepository;
   private final BookingMapper bookingMapper;
   private final AuditService auditService;
   private final PricingProps pricingProps;
+  private final BookingProps bookingProps;
 
   public ResponseEntity<BookingResponseDto> createBooking(Long userId, Long unitId, BookingCreateDto bookingCreateDto) {
+    if (ChronoUnit.DAYS.between(bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn())
+        > bookingProps.maxBookingTerm()) {
+      throw new MaxBookingTermException(bookingProps.maxBookingTerm());
+    }
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new ResourceNotFountException(User.class.getSimpleName(), unitId));
     Unit unit = unitRepository.findById(unitId)
@@ -52,7 +55,7 @@ public class BookingService {
         MarkupUtils.countTotalCostForPeriod(bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn(),
             unit.getPricePerNight(), pricingProps.markupPercent());
     booking.setTotalCost(totalCost);
-    booking.setExpiresAt(Instant.now().plus(Duration.ofMinutes(expiration)));
+    booking.setExpiresAt(Instant.now().plus(bookingProps.expirationTime()));
     booking = bookingRepository.save(booking);
     BookingResponseDto bookingResponseDto = bookingMapper.toBookingResponseDto(booking);
     auditService.log(Booking.class, booking.getId(), EventLogAction.CREATE_BOOKING.name(), booking);
