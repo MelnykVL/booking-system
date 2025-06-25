@@ -6,8 +6,8 @@ import com.testtask.booking_system.entity.Booking;
 import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.entity.User;
 import com.testtask.booking_system.enums.BookingStatus;
-import com.testtask.booking_system.exception.BookingCancellationException;
 import com.testtask.booking_system.exception.ResourceNotFountException;
+import com.testtask.booking_system.exception.UserNotOwnerBookingException;
 import com.testtask.booking_system.mapper.BookingMapper;
 import com.testtask.booking_system.props.PricingProps;
 import com.testtask.booking_system.repository.BookingRepository;
@@ -36,7 +36,7 @@ public class BookingService {
   public ResponseEntity<BookingResponseDto> createBooking(Long userId, Long unitId, BookingCreateDto bookingCreateDto) {
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new ResourceNotFountException(User.class.getSimpleName(), unitId));
-    Unit unit = unitRepository.findById(userId)
+    Unit unit = unitRepository.findById(unitId)
         .orElseThrow(() -> new ResourceNotFountException(Unit.class.getSimpleName(), unitId));
     Booking booking = bookingMapper.fromBookingCreateDto(bookingCreateDto);
     booking.setUser(user);
@@ -54,13 +54,11 @@ public class BookingService {
   public ResponseEntity<Void> cancelBooking(Long userId, Long unitId, Long bookingId) {
     Booking booking = bookingRepository.findById(bookingId)
         .orElseThrow(() -> new ResourceNotFountException(Booking.class.getSimpleName(), bookingId));
-    if (booking.getUser().getId().equals(userId)) {
-      String errorMessage = String.format("User '%d' is not the owner of booking '%s'.", userId, bookingId);
-      throw new BookingCancellationException(errorMessage);
+    if (!booking.getUser().getId().equals(userId)) {
+      throw new UserNotOwnerBookingException(userId, bookingId);
     }
-    if (booking.getUnit().getId().equals(unitId)) {
-      String errorMessage = String.format("User '%d' has not booked unit '%s'.", userId, unitId);
-      throw new BookingCancellationException(errorMessage);
+    if (!booking.getUnit().getId().equals(unitId)) {
+      throw new UserNotOwnerBookingException(userId, unitId);
     }
     booking.setStatus(BookingStatus.CANCELED);
     bookingRepository.save(booking);
