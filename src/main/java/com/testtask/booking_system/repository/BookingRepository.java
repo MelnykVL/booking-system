@@ -1,6 +1,7 @@
 package com.testtask.booking_system.repository;
 
 import com.testtask.booking_system.entity.Booking;
+import com.testtask.booking_system.enums.BookingStatus;
 import java.time.Instant;
 import java.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,17 +12,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-  @Query("""
-      UPDATE Booking b SET b.status = com.testtask.booking_system.enums.BookingStatus.COMPLETED 
-      WHERE b.status = com.testtask.booking_system.enums.BookingStatus.PAID AND b.checkOutOn <= :today
-      """)
+  @Query("UPDATE Booking b SET b.status = :completed WHERE b.status = :paid AND b.checkOutOn <= :today")
   @Modifying
-  int completeFinishedBookings(LocalDate today);
+  int completeFinishedBookings(BookingStatus completed, BookingStatus paid, LocalDate today);
 
-  @Query("""
-      UPDATE Booking b SET b.status = com.testtask.booking_system.enums.BookingStatus.EXPIRED 
-      WHERE b.status = com.testtask.booking_system.enums.BookingStatus.RESERVED AND b.expiresAt <= :cutoff
-      """)
+  @Query("UPDATE Booking b SET b.status = :expired WHERE b.status = :reserved AND b.expiresAt <= :cutoff")
   @Modifying
-  int expireOldBooking(Instant cutoff);
+  int expireOldBooking(BookingStatus expired, BookingStatus reserved, Instant cutoff);
 }

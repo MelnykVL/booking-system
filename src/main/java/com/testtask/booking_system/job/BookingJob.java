@@ -1,6 +1,7 @@
 package com.testtask.booking_system.job;
 
 import com.testtask.booking_system.entity.Booking;
+import com.testtask.booking_system.enums.BookingStatus;
 import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.repository.BookingRepository;
 import com.testtask.booking_system.service.AuditService;
@@ -27,7 +28,8 @@ public class BookingJob {
 
   @Scheduled(cron = "0 0 0 * * *")
   public void completeFinishedBookings() {
-    int completedBookings = bookingRepository.completeFinishedBookings(LocalDate.now());
+    int completedBookings =
+        bookingRepository.completeFinishedBookings(BookingStatus.COMPLETED, BookingStatus.PAID, LocalDate.now());
     auditService.log(Booking.class, EventLogAction.BOOKING_COMPLETED.name(),
         Map.of(NUMBER_OF_COMPLETED_FIELD, completedBookings));
     if (completedBookings > 0) {
@@ -37,7 +39,8 @@ public class BookingJob {
 
   @Scheduled(cron = "0 * * * * *")
   public void expireOldBookings() {
-    int expiredBookings = bookingRepository.expireOldBooking(Instant.now());
+    int expiredBookings =
+        bookingRepository.expireOldBooking(BookingStatus.EXPIRED, BookingStatus.RESERVED, Instant.now());
     auditService.log(Booking.class, EventLogAction.BOOKING_COMPLETED.name(),
         Map.of(NUMBER_OF_EXPIRED_FIELD, expiredBookings));
     if (expiredBookings > 0) {
