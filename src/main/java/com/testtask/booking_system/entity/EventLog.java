@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "event_logs", schema = "booking_system")
@@ -38,6 +40,7 @@ public class EventLog {
   private String action;
 
   @Column(columnDefinition = "jsonb")
+  @JdbcTypeCode(SqlTypes.JSON)
   private String payload;
 
   @CreationTimestamp
