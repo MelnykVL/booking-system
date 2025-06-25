@@ -15,6 +15,14 @@ public class AuditService {
   private final AuditRepository auditRepository;
   private final ObjectMapper objectMapper;
 
+  public void log(Class<?> entity, String action) {
+    this.log(entity, null, action, null);
+  }
+
+  public void log(Class<?> entity, String action, Object payload) {
+    this.log(entity, null, action, payload);
+  }
+
   public void log(Class<?> entity, Long entityId, String action, Object payload) {
     EventLog eventLog = new EventLog();
     eventLog.setEntity(entity.getSimpleName());
