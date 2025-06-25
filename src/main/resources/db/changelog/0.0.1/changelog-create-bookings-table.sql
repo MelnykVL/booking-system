@@ -2,7 +2,7 @@
 
 --changeset MelnykVL:create-bookings-table
 --comment create table booking_system.bookings
-CREATE TYPE BOOKING_STATUS AS ENUM('RESERVED', 'PAID', 'CANCELED', 'EXPIRED');
+CREATE TYPE BOOKING_STATUS AS ENUM('RESERVED', 'PAID', 'COMPLETED', 'CANCELED', 'EXPIRED');
 
 CREATE TABLE booking_system.bookings (
     id                  BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
