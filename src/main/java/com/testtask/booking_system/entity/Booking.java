@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -60,7 +61,7 @@ public class Booking {
   private BookingStatus status = BookingStatus.RESERVED;
 
   @Column(nullable = false)
-  private Instant expiresAt;
+  private Instant expiresAt = Instant.now().plus(Duration.ofMinutes(15));
 
   @CreationTimestamp
   private Instant createdAt;
