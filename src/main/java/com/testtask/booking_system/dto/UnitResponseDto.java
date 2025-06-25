@@ -11,6 +11,7 @@ public record UnitResponseDto(
     Integer floor,
     AccommodationType type,
     BigDecimal pricePerNight,
+    String description,
     Instant createdAt
 ) {
 }

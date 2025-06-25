@@ -11,5 +11,6 @@ public record UnitCreateDto(
     @NotNull(message = "'floor' cannot be null.") Integer floor,
     @NotNull(message = "'type' cannot be blank.") AccommodationType type,
     @NotNull(message = "'pricePerNight' cannot be null.")
-    @Positive(message = "'pricePerNight' must be greater than 0.00.") BigDecimal pricePerNight
+    @Positive(message = "'pricePerNight' must be greater than 0.00.") BigDecimal pricePerNight,
+    String description
 ) {}

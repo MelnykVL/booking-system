@@ -56,6 +56,9 @@ public class Unit {
   @Positive
   private BigDecimal pricePerNight;
 
+  @Column
+  private String description;
+
   @CreationTimestamp
   private Instant createdAt;
 

@@ -5,5 +5,6 @@ import java.math.BigDecimal;
 
 public record UnitPatchDto(
     @Positive(message = "'numberOfRooms' must be greater than 0.") Integer numberOfRooms,
-    @Positive(message = "'pricePerNight' must be greater than 0.") BigDecimal pricePerNight
+    @Positive(message = "'pricePerNight' must be greater than 0.") BigDecimal pricePerNight,
+    String description
 ) {}
