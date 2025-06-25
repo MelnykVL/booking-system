@@ -1,6 +1,6 @@
 booking-system:
   booking:
-    expiration-time: 15m
+    expiration: 15m
   pricing:
     markup-percent: 15
 spring:
