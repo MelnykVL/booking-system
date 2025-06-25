@@ -1,7 +1,9 @@
 package com.testtask.booking_system.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.testtask.booking_system.entity.EventLog;
+import com.testtask.booking_system.exception.ObjectToJsonProcessingException;
 import com.testtask.booking_system.repository.AuditRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,11 @@ public class AuditService {
     eventLog.setEntity(entity.getSimpleName());
     eventLog.setEntityId(entityId);
     eventLog.setAction(action);
-    eventLog.setPayload(objectMapper.convertValue(payload, String.class));
+    try {
+      eventLog.setPayload(objectMapper.writeValueAsString(payload));
+    } catch (JsonProcessingException ex) {
+      throw new ObjectToJsonProcessingException(ex);
+    }
     auditRepository.save(eventLog);
   }
 }
