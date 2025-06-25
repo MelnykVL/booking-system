@@ -11,7 +11,7 @@ CREATE TABLE booking_system.bookings (
     check_in_on         DATE NOT NULL,
     check_out_on        DATE NOT NULL, --exclusion
     total_cost          NUMERIC(10, 2) NOT NULL,
-    status              BOOKING_STATUS DEFAULT 'RESERVED',
+    status              BOOKING_STATUS NOT NULL,
     expires_at          TIMESTAMPTZ NOT NULL,
     created_at          TIMESTAMPTZ NOT NULL,
     updated_at          TIMESTAMPTZ NOT NULL,
