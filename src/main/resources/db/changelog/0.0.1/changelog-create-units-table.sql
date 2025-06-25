@@ -15,6 +15,14 @@ CREATE TABLE booking_system.units (
     created_at          TIMESTAMPTZ NOT NULL,
     updated_at          TIMESTAMPTZ NOT NULL
 );
-CREATE INDEX idx_unit_catalog ON booking_system.units(number_of_rooms, floor, type);
-CREATE INDEX idx_unit_price ON booking_system.units(price_per_night);
 --rollback drop table booking_system.users
+
+--changeset MelnykVL:create-index-idx_unit_catalog
+--comment create index idx_unit_catalog
+CREATE INDEX idx_unit_catalog ON booking_system.units(number_of_rooms, floor, type);
+--rollback drop index idx_unit_catalog
+
+--changeset MelnykVL:create-index-idx_unit_price
+--comment create index idx_unit_price
+CREATE INDEX idx_unit_price ON booking_system.units(price_per_night);
+--rollback drop index idx_unit_price
