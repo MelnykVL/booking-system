@@ -31,7 +31,7 @@ public class EventLog {
   @Column(nullable = false)
   private String entity;
 
-  @Column(nullable = false)
+  @Column
   private Long entityId;
 
   @Column(nullable = false)

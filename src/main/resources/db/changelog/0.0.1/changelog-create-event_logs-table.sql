@@ -5,7 +5,7 @@
 CREATE TABLE booking_system.event_logs (
     uuid            UUID PRIMARY KEY,
     entity          VARCHAR(100) NOT NULL,
-    entity_id       BIGINT NOT NULL,
+    entity_id       BIGINT,
     action          TEXT NOT NULL,
     payload         JSONB,
     created_at      TIMESTAMPTZ NOT NULL
