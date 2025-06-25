@@ -57,7 +57,7 @@ public class Booking {
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-  private BookingStatus status;
+  private BookingStatus status = BookingStatus.RESERVED;
 
   @Column(nullable = false)
   private Instant expiresAt;
