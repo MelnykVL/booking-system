@@ -14,21 +14,25 @@ public class BusinessExceptionHandler {
 
   @ExceptionHandler(UserEmailAlreadyExistsException.class)
   public ResponseEntity<String> handleUserEmailAlreadyExistsException(UserEmailAlreadyExistsException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+        .body(ex.getMessage());
   }
 
   @ExceptionHandler(ResourceNotFountException.class)
   public ResponseEntity<String> handleResourceNotFountException(ResourceNotFountException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        .body(ex.getMessage());
   }
 
   @ExceptionHandler(UserNotOwnerBookingException.class)
   public ResponseEntity<String> handleUserNotOwnerBookingException(UserNotOwnerBookingException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+        .body(ex.getMessage());
   }
 
   @ExceptionHandler(UnitNotBookedByUserException.class)
   public ResponseEntity<String> handleUnitNotBookedByUserException(UnitNotBookedByUserException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        .body(ex.getMessage());
   }
 }
