@@ -7,6 +7,7 @@ import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.entity.User;
 import com.testtask.booking_system.enums.BookingStatus;
 import com.testtask.booking_system.enums.EventLogAction;
+import com.testtask.booking_system.exception.BookingCancellationNotAllowedException;
 import com.testtask.booking_system.exception.ResourceNotFountException;
 import com.testtask.booking_system.exception.UserNotOwnerBookingException;
 import com.testtask.booking_system.mapper.BookingMapper;
@@ -67,6 +68,9 @@ public class BookingService {
     }
     if (!booking.getUnit().getId().equals(unitId)) {
       throw new UserNotOwnerBookingException(userId, unitId);
+    }
+    if (!booking.getStatus().equals(BookingStatus.RESERVED)) {
+      throw new BookingCancellationNotAllowedException(booking.getStatus());
     }
     booking.setStatus(BookingStatus.CANCELED);
     bookingRepository.save(booking);
