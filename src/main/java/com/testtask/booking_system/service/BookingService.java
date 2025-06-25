@@ -74,7 +74,7 @@ public class BookingService {
     }
     booking.setStatus(BookingStatus.CANCELED);
     bookingRepository.save(booking);
-    auditService.log(Booking.class, bookingId, EventLogAction.CREATE_BOOKING.name(), booking);
+    auditService.log(Booking.class, bookingId, EventLogAction.BOOKING_CANCELED.name(), booking);
 
     return ResponseEntity.noContent().build();
   }
