@@ -19,6 +19,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "payments", schema = "booking_system")
@@ -43,8 +45,9 @@ public class Payment {
   @Column(nullable = false, precision = 10, scale = 2)
   private BigDecimal amount;
 
-  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  @JdbcTypeCode(SqlTypes.NAMED_ENUM)
   private PaymentStatus status;
 
   @CreationTimestamp
