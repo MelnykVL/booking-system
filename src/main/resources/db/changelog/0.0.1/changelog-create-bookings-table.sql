@@ -19,4 +19,5 @@ CREATE TABLE booking_system.bookings (
     CONSTRAINT cho_chin_check CHECK ( check_out_on > check_in_on ),
     CONSTRAINT booking_no_overlap EXCLUDE USING gist(unit_id WITH =, period WITH &&) WHERE (status IN ('RESERVED', 'PAID'))
 );
+CREATE INDEX idx_booking_expiry ON booking_system.bookings(status, expires_at);
 --rollback drop table booking_system.bookings
