@@ -11,6 +11,7 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Immutable;
 
@@ -18,6 +19,7 @@ import org.hibernate.annotations.Immutable;
 @Table(name = "event_logs", schema = "booking_system")
 @Immutable
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventLog {
