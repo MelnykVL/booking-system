@@ -1,11 +1,5 @@
-package com.testtask.booking_system.config;
+package com.testtask.booking_system.exception;
 
-import com.testtask.booking_system.exception.BookingCancellationNotAllowedException;
-import com.testtask.booking_system.exception.MaxBookingTermException;
-import com.testtask.booking_system.exception.ResourceNotFountException;
-import com.testtask.booking_system.exception.UnitNotBookedByUserException;
-import com.testtask.booking_system.exception.UserEmailAlreadyExistsException;
-import com.testtask.booking_system.exception.UserNotOwnerBookingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

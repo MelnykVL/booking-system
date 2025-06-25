@@ -1,4 +1,4 @@
-package com.testtask.booking_system.config;
+package com.testtask.booking_system.exception;
 
 import java.sql.SQLException;
 import java.util.stream.Collectors;
