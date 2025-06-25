@@ -1,6 +1,5 @@
 package com.testtask.booking_system.job;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.testtask.booking_system.entity.Booking;
 import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.repository.BookingRepository;
@@ -25,7 +24,6 @@ public class BookingJob {
 
   private final BookingRepository bookingRepository;
   private final AuditService auditService;
-  private final ObjectMapper objectMapper;
 
   @Scheduled(cron = "0 0 0 * * *")
   public void completeFinishedBookings() {
