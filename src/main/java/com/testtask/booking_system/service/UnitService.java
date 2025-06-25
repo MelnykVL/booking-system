@@ -6,6 +6,7 @@ import com.testtask.booking_system.dto.UnitPatchDto;
 import com.testtask.booking_system.dto.UnitResponseDto;
 import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.entity.User;
+import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.exception.ResourceNotFountException;
 import com.testtask.booking_system.mapper.PageMapper;
 import com.testtask.booking_system.mapper.UnitMapper;
@@ -26,6 +27,7 @@ public class UnitService {
   private final UnitRepository unitRepository;
   private final UserRepository userRepository;
   private final UnitMapper unitMapper;
+  private final AuditService auditService;
   private final PageMapper pageMapper;
 
   @Transactional(readOnly = true)
@@ -67,6 +69,7 @@ public class UnitService {
     Unit unit = unitMapper.fromUnitCreateDto(unitCreateDto);
     unit.setOwner(owner);
     UnitResponseDto unitResponseDto = unitMapper.toUnitResponseDto(unitRepository.save(unit));
+    auditService.log(Unit.class, unit.getId(), EventLogAction.CREATE_UNIT.name(), unit);
 
     return ResponseEntity.ok(unitResponseDto);
   }
@@ -76,6 +79,8 @@ public class UnitService {
         .orElseThrow(() -> new ResourceNotFountException(Unit.class.getSimpleName(), unitId));
     unit = unitMapper.fromUnitPatchDto(unitPatchDto, unit);
     UnitResponseDto unitResponseDto = unitMapper.toUnitResponseDto(unitRepository.save(unit));
+    auditService.log(Unit.class, unit.getId(), EventLogAction.UPDATE_UNIT.name(), unit);
+
     return ResponseEntity.ok(unitResponseDto);
   }
 
@@ -84,5 +89,6 @@ public class UnitService {
       throw new ResourceNotFountException(Unit.class.getSimpleName(), unitId);
     }
     unitRepository.deleteById(unitId);
+    auditService.log(Unit.class, unitId, EventLogAction.DELETE_UNIT.name(), unitId);
   }
 }

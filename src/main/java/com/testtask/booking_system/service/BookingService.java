@@ -6,6 +6,7 @@ import com.testtask.booking_system.entity.Booking;
 import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.entity.User;
 import com.testtask.booking_system.enums.BookingStatus;
+import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.exception.ResourceNotFountException;
 import com.testtask.booking_system.exception.UserNotOwnerBookingException;
 import com.testtask.booking_system.mapper.BookingMapper;
@@ -35,6 +36,7 @@ public class BookingService {
   private final UserRepository userRepository;
   private final UnitRepository unitRepository;
   private final BookingMapper bookingMapper;
+  private final AuditService auditService;
   private final PricingProps pricingProps;
 
   public ResponseEntity<BookingResponseDto> createBooking(Long userId, Long unitId, BookingCreateDto bookingCreateDto) {
@@ -52,6 +54,8 @@ public class BookingService {
     booking.setExpiresAt(Instant.now().plus(Duration.ofMinutes(expiration)));
     booking = bookingRepository.save(booking);
     BookingResponseDto bookingResponseDto = bookingMapper.toBookingResponseDto(booking);
+    auditService.log(Booking.class, booking.getId(), EventLogAction.CREATE_BOOKING.name(), booking);
+
     return ResponseEntity.ok(bookingResponseDto);
   }
 
@@ -66,6 +70,7 @@ public class BookingService {
     }
     booking.setStatus(BookingStatus.CANCELED);
     bookingRepository.save(booking);
+    auditService.log(Booking.class, bookingId, EventLogAction.CREATE_BOOKING.name(), booking);
 
     return ResponseEntity.noContent().build();
   }

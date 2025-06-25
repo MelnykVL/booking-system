@@ -4,6 +4,7 @@ import com.testtask.booking_system.dto.UserCreateDto;
 import com.testtask.booking_system.dto.UserPatchDto;
 import com.testtask.booking_system.dto.UserResponseDto;
 import com.testtask.booking_system.entity.User;
+import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.exception.ResourceNotFountException;
 import com.testtask.booking_system.exception.UserEmailAlreadyExistsException;
 import com.testtask.booking_system.mapper.UserMapper;
@@ -21,6 +22,7 @@ public class UserService {
 
   private final UserRepository userRepository;
   private final UserMapper userMapper;
+  private final AuditService auditService;
 
   @Transactional(readOnly = true)
   public ResponseEntity<UserResponseDto> findUser(Long userId) {
@@ -37,6 +39,7 @@ public class UserService {
     }
     User user = userMapper.fromUserCreateDto(userCreateDto);
     UserResponseDto userResponseDto = userMapper.toUserResponseDto(userRepository.save(user));
+    auditService.log(User.class, user.getId(), EventLogAction.CREATE_USER.name(), user);
 
     return ResponseEntity.ok(userResponseDto);
   }
@@ -50,6 +53,8 @@ public class UserService {
     }
     user = userMapper.fromUserPatchDto(userPatchDto, user);
     UserResponseDto userResponseDto = userMapper.toUserResponseDto(userRepository.save(user));
+    auditService.log(User.class, user.getId(), EventLogAction.UPDATE_USER.name(), user);
+
     return ResponseEntity.ok(userResponseDto);
   }
 }
