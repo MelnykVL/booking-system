@@ -16,9 +16,28 @@ CREATE TABLE booking_system.bookings (
     created_at          TIMESTAMPTZ NOT NULL,
     updated_at          TIMESTAMPTZ NOT NULL,
     period              DATERANGE GENERATED ALWAYS AS (daterange(check_in_on, check_out_on, '[)')) stored,
-    CONSTRAINT cho_chin_check CHECK ( check_out_on > check_in_on ),
-    CONSTRAINT booking_no_overlap EXCLUDE USING gist(unit_id WITH =, period WITH &&) WHERE (status IN ('RESERVED', 'PAID'))
+    CONSTRAINT booking_no_overlap
 );
-CREATE INDEX idx_booking_expire ON booking_system.bookings(expires_at) WHERE status = 'RESERVED';
-CREATE INDEX idx_booking_complete ON booking_system.bookings (check_out_on) WHERE status = 'PAID'
 --rollback drop table booking_system.bookings
+
+--changeset MelnykVL:create-constraint-cho_chin_check
+--comment create constraint cho_chin_check
+ALTER TABLE booking_system.bookings
+ADD CONSTRAINT cho_chin_check CHECK (check_out_on > check_in_on)
+--rollback drop constraint cho_chin_check
+
+--changeset MelnykVL:create-constraint-booking_no_overlap
+--comment create constraint booking_no_overlap
+ALTER TABLE booking_system.bookings
+ADD CONSTRAINT booking_no_overlap EXCLUDE USING gist(unit_id WITH =, period WITH &&) WHERE (status IN ('RESERVED', 'PAID'))
+--rollback drop constraint booking_no_overlap
+
+--changeset MelnykVL:create-index-idx_booking_expire
+--comment create index idx_booking_expire
+CREATE INDEX idx_booking_expire ON booking_system.bookings(expires_at) WHERE status = 'RESERVED';
+--rollback drop index idx_booking_expire
+
+--changeset MelnykVL:create-index-idx_booking_complete
+--comment create index idx_booking_complete
+CREATE INDEX idx_booking_complete ON booking_system.bookings(check_out_on) WHERE status = 'PAID'
+--rollback drop index idx_booking_complete
