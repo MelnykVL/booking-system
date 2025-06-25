@@ -1,5 +1,7 @@
 package com.testtask.booking_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.testtask.booking_system.enums.BookingStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,10 +41,12 @@ public class Booking {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "unit_id")
+  @JsonBackReference
   private Unit unit;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
+  @JsonBackReference
   private User user;
 
   @Column(nullable = false)
@@ -69,5 +73,6 @@ public class Booking {
   private Instant updatedAt;
 
   @OneToOne(mappedBy = "booking")
+  @JsonManagedReference
   private Payment payment;
 }

@@ -1,5 +1,6 @@
 package com.testtask.booking_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -49,11 +50,14 @@ public class User {
   private Instant updatedAt;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
+  @JsonManagedReference
   private List<Unit> units;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @JsonManagedReference
   private List<Booking> bookings;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @JsonManagedReference
   private List<Payment> payments;
 }

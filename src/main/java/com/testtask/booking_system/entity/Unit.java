@@ -1,5 +1,6 @@
 package com.testtask.booking_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.testtask.booking_system.enums.AccommodationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +39,7 @@ public class Unit {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "owner_id")
+  @JsonBackReference
   private User owner;
 
   @Column(nullable = false)
