@@ -15,4 +15,6 @@ CREATE TABLE booking_system.units (
     created_at          TIMESTAMPTZ NOT NULL,
     updated_at          TIMESTAMPTZ NOT NULL
 );
+CREATE INDEX idx_unit_catalog ON booking_system.units(number_of_rooms, floor, type);
+CREATE INDEX idx_unit_price ON booking_system.units(price_per_night);
 --rollback drop table booking_system.users
