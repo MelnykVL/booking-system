@@ -30,9 +30,9 @@ public class BookingJob {
   public void completeFinishedBookings() {
     int completedBookings =
         bookingRepository.completeFinishedBookings(BookingStatus.COMPLETED, BookingStatus.PAID, LocalDate.now());
-    auditService.log(Booking.class, EventLogAction.BOOKING_COMPLETED.name(),
-        Map.of(NUMBER_OF_COMPLETED_FIELD, completedBookings));
     if (completedBookings > 0) {
+      auditService.log(Booking.class, EventLogAction.BOOKING_COMPLETED.name(),
+          Map.of(NUMBER_OF_COMPLETED_FIELD, completedBookings));
       log.info("Completed {} finished bookings", completedBookings);
     }
   }
@@ -41,9 +41,9 @@ public class BookingJob {
   public void expireOldBookings() {
     int expiredBookings =
         bookingRepository.expireOldBooking(BookingStatus.EXPIRED, BookingStatus.RESERVED, Instant.now());
-    auditService.log(Booking.class, EventLogAction.BOOKING_COMPLETED.name(),
-        Map.of(NUMBER_OF_EXPIRED_FIELD, expiredBookings));
     if (expiredBookings > 0) {
+      auditService.log(Booking.class, EventLogAction.BOOKING_COMPLETED.name(),
+          Map.of(NUMBER_OF_EXPIRED_FIELD, expiredBookings));
       log.info("Canceled {} expired bookings", expiredBookings);
     }
   }
