@@ -1,8 +1,8 @@
 package com.testtask.booking_system.mapper;
 
-import com.testtask.booking_system.dto.UnitCreateDto;
-import com.testtask.booking_system.dto.UnitPatchDto;
-import com.testtask.booking_system.dto.UnitResponseDto;
+import com.testtask.booking_system.dto.request.UnitCreateDto;
+import com.testtask.booking_system.dto.request.UnitPatchDto;
+import com.testtask.booking_system.dto.response.UnitResponseDto;
 import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.props.PricingProps;
 import com.testtask.booking_system.util.MarkupUtils;

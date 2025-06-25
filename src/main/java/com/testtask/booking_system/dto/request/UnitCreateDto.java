@@ -1,4 +1,4 @@
-package com.testtask.booking_system.dto;
+package com.testtask.booking_system.dto.request;
 
 import com.testtask.booking_system.enums.AccommodationType;
 import jakarta.validation.constraints.NotNull;

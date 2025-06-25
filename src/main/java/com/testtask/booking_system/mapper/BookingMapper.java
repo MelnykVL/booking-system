@@ -1,7 +1,7 @@
 package com.testtask.booking_system.mapper;
 
-import com.testtask.booking_system.dto.BookingCreateDto;
-import com.testtask.booking_system.dto.BookingResponseDto;
+import com.testtask.booking_system.dto.request.BookingCreateDto;
+import com.testtask.booking_system.dto.response.BookingResponseDto;
 import com.testtask.booking_system.entity.Booking;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

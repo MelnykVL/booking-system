@@ -1,4 +1,4 @@
-package com.testtask.booking_system.dto;
+package com.testtask.booking_system.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.testtask.booking_system.enums.BookingStatus;

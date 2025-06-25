@@ -1,8 +1,8 @@
 package com.testtask.booking_system.controller;
 
-import com.testtask.booking_system.dto.UserCreateDto;
-import com.testtask.booking_system.dto.UserPatchDto;
-import com.testtask.booking_system.dto.UserResponseDto;
+import com.testtask.booking_system.dto.request.UserCreateDto;
+import com.testtask.booking_system.dto.request.UserPatchDto;
+import com.testtask.booking_system.dto.response.UserResponseDto;
 import com.testtask.booking_system.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

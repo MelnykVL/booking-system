@@ -1,4 +1,4 @@
-package com.testtask.booking_system.dto;
+package com.testtask.booking_system.dto.request;
 
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;

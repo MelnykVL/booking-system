@@ -1,6 +1,6 @@
 package com.testtask.booking_system.mapper;
 
-import com.testtask.booking_system.dto.PagingResultDto;
+import com.testtask.booking_system.dto.response.PagingResultDto;
 import java.util.List;
 import java.util.function.Function;
 import org.mapstruct.Mapper;

@@ -1,8 +1,8 @@
 package com.testtask.booking_system.service;
 
-import com.testtask.booking_system.dto.UserCreateDto;
-import com.testtask.booking_system.dto.UserPatchDto;
-import com.testtask.booking_system.dto.UserResponseDto;
+import com.testtask.booking_system.dto.request.UserCreateDto;
+import com.testtask.booking_system.dto.request.UserPatchDto;
+import com.testtask.booking_system.dto.response.UserResponseDto;
 import com.testtask.booking_system.entity.User;
 import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.exception.ResourceNotFountException;
