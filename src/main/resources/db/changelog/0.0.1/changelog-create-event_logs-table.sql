@@ -12,12 +12,7 @@ CREATE TABLE booking_system.event_logs (
 );
 --rollback drop table booking_system.events;
 
---changeset MelnykVL:create-index-idx_entity_entity_id
---comment create index idx_entity_entity_id
-CREATE INDEX idx_entity_entity_id ON booking_system.event_logs(entity, entity_id);
---rollback drop index idx_entity_entity_id
-
 --changeset MelnykVL:create-index-idx_created
 --comment create index idx_created
-CREATE INDEX idx_created ON booking_system.event_logs(created_at);
+CREATE INDEX idx_created ON booking_system.event_logs(created_at DESC);
 --rollback drop index idx_created
