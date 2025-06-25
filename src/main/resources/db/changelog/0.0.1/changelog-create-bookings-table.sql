@@ -15,8 +15,7 @@ CREATE TABLE booking_system.bookings (
     expires_at          TIMESTAMPTZ NOT NULL,
     created_at          TIMESTAMPTZ NOT NULL,
     updated_at          TIMESTAMPTZ NOT NULL,
-    period              DATERANGE GENERATED ALWAYS AS (daterange(check_in_on, check_out_on, '[)')) stored,
-    CONSTRAINT booking_no_overlap
+    period              DATERANGE GENERATED ALWAYS AS (daterange(check_in_on, check_out_on, '[)')) stored
 );
 --rollback drop table booking_system.bookings
 
