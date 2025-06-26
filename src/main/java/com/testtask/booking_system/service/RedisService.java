@@ -30,7 +30,7 @@ public class RedisService {
     redis.opsForValue().increment(key, 1);
   }
 
-  public void invalidateAvailableUnits(Long unitId, LocalDate availableFrom, LocalDate availableTo) {
+  public void removeAvailableUnits(Long unitId, LocalDate availableFrom, LocalDate availableTo) {
     String key = String.format(AVAILABLE_UNITS_KEY, unitId, availableFrom, availableTo);
     redis.opsForValue().decrement(key, 1);
   }

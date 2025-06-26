@@ -36,6 +36,7 @@ public class BookingService {
   private final UnitRepository unitRepository;
   private final BookingMapper bookingMapper;
   private final AuditService auditService;
+  private final RedisService redisService;
   private final PricingProps pricingProps;
   private final BookingProps bookingProps;
 
@@ -57,6 +58,7 @@ public class BookingService {
     booking.setTotalPrice(totalPrice);
     booking.setExpiresAt(Instant.now().plus(bookingProps.expirationTime()));
     booking = bookingRepository.save(booking);
+    redisService.addAvailableUnit(unitId, bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn());
     BookingResponseDto bookingResponseDto = bookingMapper.toBookingResponseDto(booking);
     auditService.log(Booking.class, booking.getId(), EventLogAction.CREATE_BOOKING.name(), booking);
 
@@ -77,6 +79,7 @@ public class BookingService {
     }
     booking.setStatus(BookingStatus.CANCELED);
     bookingRepository.save(booking);
+    redisService.removeAvailableUnits(unitId, booking.getCheckInOn(), booking.getCheckOutOn());
     auditService.log(Booking.class, bookingId, EventLogAction.BOOKING_CANCELED.name(), booking);
 
     return ResponseEntity.noContent().build();
