@@ -1,4 +1,4 @@
-package com.testtask.booking_system;
+package com.testtask.booking_system.service;
 
 public interface NotificationSender {
 

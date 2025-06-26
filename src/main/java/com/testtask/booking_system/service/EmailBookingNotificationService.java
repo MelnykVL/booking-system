@@ -1,6 +1,5 @@
 package com.testtask.booking_system.service;
 
-import com.testtask.booking_system.NotificationSender;
 import com.testtask.booking_system.dto.notification.BookingNotificationDto;
 import com.testtask.booking_system.enums.EventLogAction;
 import lombok.RequiredArgsConstructor;
