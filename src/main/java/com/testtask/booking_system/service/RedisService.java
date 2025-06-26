@@ -1,9 +1,13 @@
 package com.testtask.booking_system.service;
 
 import com.testtask.booking_system.repository.UnitRepository;
+import com.testtask.booking_system.view.ExpiredBookingView;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.connection.StringRedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +37,19 @@ public class RedisService {
   public void removeAvailableUnits(Long unitId, LocalDate availableFrom, LocalDate availableTo) {
     String key = String.format(AVAILABLE_UNITS_KEY, unitId, availableFrom, availableTo);
     redis.opsForValue().decrement(key, 1);
+  }
+
+  public void batchIncrementAvailableUnits(List<ExpiredBookingView> listViews) {
+    List<String> unitKeys = listViews.stream()
+        .map(expiredBookingView -> String.format(AVAILABLE_UNITS_KEY, expiredBookingView.getUnitId(),
+            expiredBookingView.getCheckInOn(),
+            expiredBookingView.getCheckOutOn()))
+        .toList();
+
+    redis.executePipelined((RedisCallback<Void>) conn -> {
+      StringRedisConnection c = (StringRedisConnection) conn;
+      unitKeys.forEach(c::decr);
+      return null;
+    });
   }
 }
