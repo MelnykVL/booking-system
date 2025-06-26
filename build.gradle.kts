@@ -27,16 +27,24 @@ configurations {
 }
 
 dependencies {
+  // Spring Boot starters
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+  // Database
+  runtimeOnly("org.postgresql:postgresql")
   implementation("org.liquibase:liquibase-core")
+
+  // Utilities
   implementation(libs.spring.doc.openapi)
   implementation(libs.mapstruct)
-  implementation(libs.javafaker)
-  annotationProcessor(libs.lombok)
   annotationProcessor(libs.mapstruct.processor)
-  runtimeOnly("org.postgresql:postgresql")
+  annotationProcessor(libs.lombok)
+  implementation(libs.javafaker) { exclude("org.yaml") }
+  implementation("org.yaml:snakeyaml")
+
+  // Testing
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-testcontainers")
   testImplementation("org.testcontainers:junit-jupiter")
