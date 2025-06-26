@@ -66,13 +66,13 @@ public class BookingService {
   public ResponseEntity<Void> cancelBooking(Long userId, Long unitId, Long bookingId) {
     Booking booking = bookingRepository.findById(bookingId)
         .orElseThrow(() -> new ResourceNotFountException(Booking.class.getSimpleName(), bookingId));
-    if (!booking.getUser().getId().equals(userId)) {
+    if (!booking.getUser().getId().equals(userId) || !booking.getUnit().getId().equals(unitId)) {
       throw new UserNotOwnerBookingException(userId, bookingId);
     }
-    if (!booking.getUnit().getId().equals(unitId)) {
-      throw new UserNotOwnerBookingException(userId, unitId);
+    if (BookingStatus.CANCELED.equals(booking.getStatus())) {
+      return ResponseEntity.noContent().build();
     }
-    if (!booking.getStatus().equals(BookingStatus.RESERVED)) {
+    if (!BookingStatus.RESERVED.equals(booking.getStatus())) {
       throw new BookingCancellationNotAllowedException(booking.getStatus());
     }
     booking.setStatus(BookingStatus.CANCELED);
