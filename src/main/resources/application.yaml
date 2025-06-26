@@ -9,6 +9,12 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type: TRACE
 spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  cache:
+    type: redis
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
   application:
