@@ -1,6 +1,7 @@
 package com.testtask.booking_system.controller;
 
 import com.testtask.booking_system.dto.request.UnitPatchDto;
+import com.testtask.booking_system.dto.request.UnitSearchCriteriaDto;
 import com.testtask.booking_system.dto.response.PagingResultDto;
 import com.testtask.booking_system.dto.response.UnitResponseDto;
 import com.testtask.booking_system.service.UnitService;
@@ -31,11 +32,12 @@ public class UnitController {
   }
 
   @GetMapping
-  public ResponseEntity<PagingResultDto<UnitResponseDto>> findAllUnits(
+  public ResponseEntity<PagingResultDto<UnitResponseDto>> findUnits(
       @RequestParam(required = false, defaultValue = "0") Integer page,
-      @RequestParam(required = false, defaultValue = "10") Integer size) {
+      @RequestParam(required = false, defaultValue = "10") Integer size,
+      @Valid @RequestBody UnitSearchCriteriaDto unitSearchCriteriaDto) {
     Pageable pageable = PageRequest.of(page, size);
-    return unitService.findAllUnits(pageable);
+    return unitService.findUnits(unitSearchCriteriaDto, pageable);
   }
 
   @PatchMapping("/{unitId}")
