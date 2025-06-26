@@ -5,8 +5,6 @@ import com.testtask.booking_system.dto.request.UnitPatchDto;
 import com.testtask.booking_system.dto.response.UnitResponseDto;
 import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.props.PricingProps;
-import com.testtask.booking_system.util.MarkupUtils;
-import java.math.BigDecimal;
 import lombok.Setter;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -26,13 +24,9 @@ public abstract class UnitMapper {
 
   @Mapping(source = "owner.id", target = "ownerId")
   @Mapping(target = "pricePerNight",
-      expression = "java(applyMarkup(unit.getPricePerNight(), pricingProps.markupPercent()))")
+      expression = "java(applyMarkup(pricingProps.getTotalPrice(pricePerNight)))")
   public abstract UnitResponseDto toUnitResponseDto(Unit unit);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   public abstract Unit fromUnitPatchDto(UnitPatchDto unitPatchDto, @MappingTarget Unit unit);
-
-  public BigDecimal applyMarkup(BigDecimal price, BigDecimal markupPercent) {
-    return MarkupUtils.applyMarkup(price, markupPercent);
-  }
 }

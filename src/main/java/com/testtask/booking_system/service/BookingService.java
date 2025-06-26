@@ -51,9 +51,9 @@ public class BookingService {
     Booking booking = bookingMapper.fromBookingCreateDto(bookingCreateDto);
     booking.setUser(user);
     booking.setUnit(unit);
-    BigDecimal totalCost =
-        MarkupUtils.countTotalCostForPeriod(bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn(),
-            unit.getPricePerNight(), pricingProps.markupPercent());
+    BigDecimal totalCost = pricingProps.getTotalPrice(
+        MarkupUtils.countCostForPeriod(bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn(),
+            unit.getPricePerNight()));
     booking.setTotalCost(totalCost);
     booking.setExpiresAt(Instant.now().plus(bookingProps.expirationTime()));
     booking = bookingRepository.save(booking);

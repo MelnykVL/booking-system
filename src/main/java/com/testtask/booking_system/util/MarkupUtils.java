@@ -17,16 +17,14 @@ public class MarkupUtils {
         .setScale(MONEY_SCALE, ROUNDING);
   }
 
-  public BigDecimal markupFactor(BigDecimal markup) {
-    return BigDecimal.ONE.add(
-        markup.divide(BigDecimal.valueOf(100)));
+  public BigDecimal countCostForPeriod(LocalDate checkInOn, LocalDate checkOutOn, BigDecimal price) {
+    long nights = ChronoUnit.DAYS.between(checkInOn, checkOutOn);
+
+    return price.multiply(BigDecimal.valueOf(nights));
   }
 
-  public BigDecimal countTotalCostForPeriod(LocalDate checkInOn, LocalDate checkOutOn, BigDecimal pricePerNight,
-      BigDecimal markupPercent) {
-    long nights = ChronoUnit.DAYS.between(checkInOn, checkOutOn);
-    BigDecimal net = pricePerNight.multiply(BigDecimal.valueOf(nights));
-
-    return applyMarkup(net, markupPercent);
+  private BigDecimal markupFactor(BigDecimal markup) {
+    return BigDecimal.ONE.add(
+        markup.divide(BigDecimal.valueOf(100)));
   }
 }
