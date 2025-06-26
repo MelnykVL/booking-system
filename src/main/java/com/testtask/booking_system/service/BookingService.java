@@ -17,7 +17,7 @@ import com.testtask.booking_system.props.PricingProps;
 import com.testtask.booking_system.repository.BookingRepository;
 import com.testtask.booking_system.repository.UnitRepository;
 import com.testtask.booking_system.repository.UserRepository;
-import com.testtask.booking_system.util.MarkupUtils;
+import com.testtask.booking_system.util.PricingUtils;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -51,10 +51,10 @@ public class BookingService {
     Booking booking = bookingMapper.fromBookingCreateDto(bookingCreateDto);
     booking.setUser(user);
     booking.setUnit(unit);
-    BigDecimal totalCost = pricingProps.getTotalPrice(
-        MarkupUtils.countCostForPeriod(bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn(),
+    BigDecimal totalPrice = pricingProps.getTotalPrice(
+        PricingUtils.countPriceForPeriod(bookingCreateDto.checkInOn(), bookingCreateDto.checkOutOn(),
             unit.getPricePerNight()));
-    booking.setTotalCost(totalCost);
+    booking.setTotalPrice(totalPrice);
     booking.setExpiresAt(Instant.now().plus(bookingProps.expirationTime()));
     booking = bookingRepository.save(booking);
     BookingResponseDto bookingResponseDto = bookingMapper.toBookingResponseDto(booking);

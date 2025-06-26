@@ -10,7 +10,7 @@ CREATE TABLE booking_system.bookings (
     user_id             BIGINT REFERENCES booking_system.users(id),
     check_in_on         DATE NOT NULL,
     check_out_on        DATE NOT NULL, --exclusion
-    total_cost          NUMERIC(10, 2) NOT NULL,
+    total_price         NUMERIC(10, 2) NOT NULL,
     status              BOOKING_STATUS NOT NULL,
     expires_at          TIMESTAMPTZ NOT NULL,
     created_at          TIMESTAMPTZ NOT NULL,

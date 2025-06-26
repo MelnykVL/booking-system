@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class MarkupUtils {
+public class PricingUtils {
 
   private static final int MONEY_SCALE = 2;
   private static final RoundingMode ROUNDING = RoundingMode.HALF_UP;
@@ -17,7 +17,7 @@ public class MarkupUtils {
         .setScale(MONEY_SCALE, ROUNDING);
   }
 
-  public BigDecimal countCostForPeriod(LocalDate checkInOn, LocalDate checkOutOn, BigDecimal price) {
+  public BigDecimal countPriceForPeriod(LocalDate checkInOn, LocalDate checkOutOn, BigDecimal price) {
     long nights = ChronoUnit.DAYS.between(checkInOn, checkOutOn);
 
     return price.multiply(BigDecimal.valueOf(nights));

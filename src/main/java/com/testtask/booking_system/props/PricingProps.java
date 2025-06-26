@@ -1,6 +1,6 @@
 package com.testtask.booking_system.props;
 
-import com.testtask.booking_system.util.MarkupUtils;
+import com.testtask.booking_system.util.PricingUtils;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
@@ -17,6 +17,6 @@ public class PricingProps {
   private final BigDecimal markupPercent;
 
   public BigDecimal getTotalPrice(BigDecimal price) {
-    return MarkupUtils.applyMarkup(price, markupPercent);
+    return PricingUtils.applyMarkup(price, markupPercent);
   }
 }

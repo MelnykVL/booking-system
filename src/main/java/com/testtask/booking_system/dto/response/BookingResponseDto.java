@@ -12,7 +12,7 @@ public record BookingResponseDto(
     @JsonInclude(JsonInclude.Include.NON_NULL) UserResponseDto userResponseDto,
     LocalDate checkInOn,
     LocalDate checkOutOn,
-    BigDecimal totalCost,
+    BigDecimal totalPrice,
     BookingStatus status,
     Instant expiresAt,
     Instant createdAt

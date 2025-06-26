@@ -57,7 +57,7 @@ public class Booking {
   private LocalDate checkOutOn;
 
   @Column(nullable = false, precision = 10, scale = 2)
-  private BigDecimal totalCost;
+  private BigDecimal totalPrice;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
@@ -80,9 +80,11 @@ public class Booking {
   @UtilityClass
   public static class Fields {
 
+    public final String ID = "id";
+    public final String UNIT = "unit";
     public final String CHECK_IN_ON = "checkInOn";
     public final String CHECK_OUT_ON = "checkOutOn";
-    public final String TOTAL_COST = "totalCost";
+    public final String TOTAL_PRICE = "totalPrice";
     public final String STATUS = "status";
     public final String EXPIRES_AT = "expiresAt";
     public final String CREATED_AT = "createdAt";
