@@ -40,7 +40,7 @@ public class UnitService {
   }
 
   @Transactional(readOnly = true)
-  public ResponseEntity<PagingResultDto<UnitResponseDto>> findAllUnits(Pageable pageable) {
+  public ResponseEntity<PagingResultDto<UnitResponseDto>> findUnits(Pageable pageable) {
     Page<Unit> pageUnits = unitRepository.findAll(pageable);
     PagingResultDto<UnitResponseDto> pagingResultUnitsDto =
         pageMapper.toPagingResultDto(pageUnits, unitMapper::toUnitResponseDto);
