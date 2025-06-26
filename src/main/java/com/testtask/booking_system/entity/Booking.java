@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.UtilityClass;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -75,4 +76,15 @@ public class Booking {
   @OneToOne(mappedBy = "booking")
   @JsonManagedReference
   private Payment payment;
+
+  @UtilityClass
+  public static class Fields {
+
+    public final String CHECK_IN_ON = "checkInOn";
+    public final String CHECK_OUT_ON = "checkOutOn";
+    public final String TOTAL_COST = "totalCost";
+    public final String STATUS = "status";
+    public final String EXPIRES_AT = "expiresAt";
+    public final String CREATED_AT = "createdAt";
+  }
 }
