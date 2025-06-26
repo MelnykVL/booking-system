@@ -33,6 +33,7 @@ dependencies {
   implementation("org.liquibase:liquibase-core")
   implementation(libs.spring.doc.openapi)
   implementation(libs.mapstruct)
+  implementation(libs.javafaker)
   annotationProcessor(libs.lombok)
   annotationProcessor(libs.mapstruct.processor)
   runtimeOnly("org.postgresql:postgresql")
