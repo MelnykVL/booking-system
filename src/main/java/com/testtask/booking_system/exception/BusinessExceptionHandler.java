@@ -26,6 +26,12 @@ public class BusinessExceptionHandler {
         .body(ex.getMessage());
   }
 
+  @ExceptionHandler(PaymentNotIncludedBookingException.class)
+  public ResponseEntity<String> handlePaymentNotIncludedBookingException(PaymentNotIncludedBookingException ex) {
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+        .body(ex.getMessage());
+  }
+
   @ExceptionHandler(UnitNotBookedByUserException.class)
   public ResponseEntity<String> handleUnitNotBookedByUserException(UnitNotBookedByUserException ex) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
