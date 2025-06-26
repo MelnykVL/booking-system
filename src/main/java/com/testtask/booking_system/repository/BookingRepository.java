@@ -19,7 +19,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
   @Query(nativeQuery = true, value = """
       UPDATE booking_system.bookings SET status = CAST(:#{#completed?.name()} AS booking_status)
                              WHERE status = CAST(:#{#paid?.name()} AS booking_status) AND check_out_on <= :today
-                                   RETURNING id, unit_id, user_id
+                                   RETURNING id, unit_id, user_id, check_in_on, check_out_on
       """)
   List<ExpiredBookingView> completeFinishedBookings(@Param("completed") BookingStatus completed,
       @Param("paid") BookingStatus paid, @Param("today") LocalDate today);
@@ -27,7 +27,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
   @Query(nativeQuery = true, value = """
       UPDATE booking_system.bookings SET status = CAST(:#{#expired?.name()} AS booking_status)
                              WHERE status = CAST(:#{#reserved?.name()} AS booking_status) AND expires_at <= :cutoff
-                                   RETURNING id, unit_id, user_id
+                                   RETURNING id, unit_id, user_id, check_in_on, check_out_on
       """)
   @Modifying
   List<ExpiredBookingView> expireOldBooking(@Param("expired") BookingStatus expired,
