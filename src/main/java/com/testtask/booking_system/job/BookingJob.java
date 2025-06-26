@@ -7,6 +7,7 @@ import com.testtask.booking_system.enums.EventLogAction;
 import com.testtask.booking_system.repository.BookingRepository;
 import com.testtask.booking_system.service.AuditService;
 import com.testtask.booking_system.service.EmailBookingNotificationService;
+import com.testtask.booking_system.service.RedisService;
 import com.testtask.booking_system.view.ExpiredBookingView;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -26,6 +27,7 @@ public class BookingJob {
 
   private final BookingRepository bookingRepository;
   private final AuditService auditService;
+  private final RedisService redisService;
   private final EmailBookingNotificationService emailBookingNotificationService;
 
   @Scheduled(cron = "0 0 0 * * *")
@@ -46,6 +48,7 @@ public class BookingJob {
     if (!expiredBookingViews.isEmpty()) {
       auditService.logBatch(Booking.class, EventLogAction.BOOKING_EXPIRED.name(),
           Collections.singletonList(expiredBookingViews));
+      redisService.batchIncrementAvailableUnits(expiredBookingViews);
       log.info("Expired {} bookings", expiredBookingViews.size());
       expiredBookingViews.forEach(ebv -> {
         BookingNotificationDto bookingNotificationDto = new BookingNotificationDto();
