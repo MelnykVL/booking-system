@@ -78,11 +78,11 @@ public class Unit {
   @UtilityClass
   public static class Fields {
 
-    final String NUMBER_OF_ROOM = "numberOfRooms";
-    final String FLOOR = "floor";
-    final String TYPE = "type";
-    final String PRICE_PER_NIGHT = "pricePerNight";
-    final String DESCRIPTION = "description";
-    final String CREATED_AT = "createdAt";
+    public final String NUMBER_OF_ROOM = "numberOfRooms";
+    public final String FLOOR = "floor";
+    public final String TYPE = "type";
+    public final String PRICE_PER_NIGHT = "pricePerNight";
+    public final String DESCRIPTION = "description";
+    public final String CREATED_AT = "createdAt";
   }
 }
