@@ -16,7 +16,7 @@ public class OpenApiConfig {
             .title("Booking System API")
             .version("1.0.0")
             .description("""
-                API for real estate booking system.
+                API documentation for real estate booking system.
                 Allows you to manage reservations, create manage them and process payments.
                 """)
             .contact(new Contact()
