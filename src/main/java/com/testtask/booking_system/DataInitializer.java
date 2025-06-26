@@ -3,6 +3,7 @@ package com.testtask.booking_system;
 import com.github.javafaker.Faker;
 import com.testtask.booking_system.entity.Unit;
 import com.testtask.booking_system.entity.User;
+import com.testtask.booking_system.enums.AccommodationType;
 import com.testtask.booking_system.repository.UnitRepository;
 import com.testtask.booking_system.repository.UserRepository;
 import java.math.BigDecimal;
@@ -41,6 +42,7 @@ public class DataInitializer implements ApplicationRunner {
           unit.setFloor(faker.number().randomDigitNotZero());
           unit.setPricePerNight(BigDecimal.valueOf(faker.number().randomDigitNotZero()));
           unit.setDescription(faker.lorem().word());
+          unit.setType(faker.options().option(AccommodationType.class));
           return unit;
         })
         .toList();

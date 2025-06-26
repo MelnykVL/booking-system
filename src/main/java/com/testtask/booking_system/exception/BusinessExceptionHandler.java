@@ -50,4 +50,10 @@ public class BusinessExceptionHandler {
     return ResponseEntity.status(HttpStatus.CONFLICT)
         .body(ex.getMessage());
   }
+
+  @ExceptionHandler(PaymentNotAllowedException.class)
+  public ResponseEntity<String> handlePaymentNotAllowedException(PaymentNotAllowedException ex) {
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+        .body(ex.getMessage());
+  }
 }

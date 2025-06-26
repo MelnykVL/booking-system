@@ -9,7 +9,7 @@ CREATE TABLE booking_system.payments (
     booking_id          BIGINT REFERENCES booking_system.bookings(id),
     user_id             BIGINT REFERENCES booking_system.users(id),
     amount              NUMERIC(10, 2) NOT NULL,
-    status              BOOKING_STATUS NOT NULL,
+    status              PAYMENT_STATUS NOT NULL,
     created_at          TIMESTAMPTZ NOT NULL
 );
 --rollback drop table booking_system.payments

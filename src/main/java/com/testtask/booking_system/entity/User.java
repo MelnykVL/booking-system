@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -32,15 +31,12 @@ public class User {
   private Long id;
 
   @Column(nullable = false)
-  @NotBlank
   private String firstName;
 
   @Column(nullable = false)
-  @NotBlank
   private String lastName;
 
   @Column(nullable = false, unique = true)
-  @NotBlank
   private String email;
 
   @CreationTimestamp

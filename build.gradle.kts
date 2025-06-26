@@ -41,6 +41,7 @@ dependencies {
   implementation(libs.mapstruct)
   annotationProcessor(libs.mapstruct.processor)
   annotationProcessor(libs.lombok)
+  annotationProcessor(libs.lombok.mapstruct.binding)
   implementation(libs.javafaker) { exclude("org.yaml") }
   implementation("org.yaml:snakeyaml")
 
