@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.UtilityClass;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -73,4 +74,15 @@ public class Unit {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
   @JsonManagedReference
   private List<Booking> bookings;
+
+  @UtilityClass
+  public static class Fields {
+
+    final String NUMBER_OF_ROOM = "numberOfRooms";
+    final String FLOOR = "floor";
+    final String TYPE = "type";
+    final String PRICE_PER_NIGHT = "pricePerNight";
+    final String DESCRIPTION = "description";
+    final String CREATED_AT = "createdAt";
+  }
 }
